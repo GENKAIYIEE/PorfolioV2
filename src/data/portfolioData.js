@@ -19,7 +19,7 @@ export const personalInfo = {
   title: 'Full-Stack Developer & Designer',
   email: 'john@example.com',
   location: 'Philippines',
-  resumeUrl: '#',
+  resumeUrl: '/jv-resume.png',
   socialLinks: {
     github: 'https://github.com/johnjoaquin',
     linkedin: 'https://linkedin.com/in/johnjoaquin',
