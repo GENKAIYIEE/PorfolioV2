@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer'
 import CountUpModule from 'react-countup'
 const CountUp = CountUpModule.default || CountUpModule
 import { personalInfo, stats, skillCategories } from '../data/portfolioData'
-import { HiX, HiCheckCircle, HiAcademicCap, HiLightBulb } from 'react-icons/hi'
+import { HiX, HiCheckCircle, HiAcademicCap, HiLightBulb, HiDownload } from 'react-icons/hi'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -62,13 +62,23 @@ export default function About() {
             <p className="text-white/80 text-lg md:text-xl font-medium leading-relaxed mb-6">
               I bridge the gap between innovative ideas and seamless reality. With hands-on experience in both software architecture and hardware engineering, my focus is always on delivering complete solutions that provide tangible value.
             </p>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="btn-primary px-8 py-3 rounded-full font-semibold relative overflow-hidden group border border-white/30 hover:border-white text-white"
-              >
-                <span className="relative z-10">View My Milestones</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </button>
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="btn-primary px-8 py-3 rounded-full font-semibold relative overflow-hidden group border border-white/30 hover:border-white text-white"
+                >
+                  <span className="relative z-10">View My Milestones</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </button>
+                <a
+                  href={personalInfo.resumeUrl}
+                  download="John_Vincent_Joaquin_Resume.png"
+                  className="btn-outline px-8 py-3 rounded-full font-semibold flex items-center gap-2 border border-white/30 hover:bg-white/10 text-white transition-colors"
+                >
+                  <HiDownload className="w-5 h-5" />
+                  <span>Download Resume</span>
+                </a>
+              </div>
           </motion.div>
 
           {/* Stats Bar */}
