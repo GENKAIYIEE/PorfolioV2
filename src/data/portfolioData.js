@@ -8,12 +8,9 @@ import innovate from '../assets/innovate.png';
 import intern from '../assets/intern.png';
 import top10 from '../assets/top10.png';
 import prog from '../assets/prog.png';
-<<<<<<< HEAD
 import kip from '../assets/kip.png';
 import ecash from '../assets/ecash.png';
 import lms from '../assets/lms.png';
-=======
->>>>>>> 3b8ece4ebb7d302485de645f1f0c0e4fdbac29af
 
 
 export const personalInfo = {
@@ -75,11 +72,7 @@ export const experiences = [
     company: 'DOST Region 1',
     period: 'OJT Period',
     link: 'https://kip.dost1.ph/',
-<<<<<<< HEAD
     image: kip,
-=======
-    image: 'kip.png',
->>>>>>> 3b8ece4ebb7d302485de645f1f0c0e4fdbac29af
     bullets: [
       'Engineered the KIP Record Management System to digitize and streamline administrative operations for the regional office.',
       'Implemented an intuitive interface and secure data structure for efficient document tracking and storage.',
@@ -92,11 +85,7 @@ export const experiences = [
     company: 'DOST Region 1',
     period: 'OJT Period',
     link: 'https://ecash.dost1.ph/',
-<<<<<<< HEAD
     image: ecash,
-=======
-    image: 'ecash.png',
->>>>>>> 3b8ece4ebb7d302485de645f1f0c0e4fdbac29af
     bullets: [
       'Built a centralized eCash Disbursement System to facilitate secure digital financial transactions for department cashiers.',
       'Programmed core database features to ensure precise fund tracking, automated receipt generation, and reliable reporting.',
@@ -109,11 +98,7 @@ export const experiences = [
     company: 'Polytechnic College of La Union',
     period: 'Project Period',
     link: null,
-<<<<<<< HEAD
     image: lms,
-=======
-    image: 'lms.png',
->>>>>>> 3b8ece4ebb7d302485de645f1f0c0e4fdbac29af
     bullets: [
       'Collaborated on building a comprehensive Library Management System tailored to the localized needs of the college campus.',
       'Integrated mission-critical modules including automated book tracking, real-time student attendance monitoring, and dynamic analytics.',

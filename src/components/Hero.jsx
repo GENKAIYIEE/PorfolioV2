@@ -25,10 +25,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center w-full pt-20">
         {/* Left Content */}
         <motion.div
-<<<<<<< HEAD
           className="order-2 lg:order-1"
-=======
->>>>>>> 3b8ece4ebb7d302485de645f1f0c0e4fdbac29af
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -115,15 +112,9 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8, x: 50 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-<<<<<<< HEAD
           className="relative order-1 lg:order-2 mb-4 lg:mb-0"
         >
           <div className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[450px] mx-auto lg:ml-auto lg:mr-0">
-=======
-          className="relative hidden lg:block"
-        >
-          <div className="relative z-10 w-full max-w-[450px] ml-auto">
->>>>>>> 3b8ece4ebb7d302485de645f1f0c0e4fdbac29af
             {/* Museum Frame Effect */}
             <div className="relative rounded-3xl p-2 bg-white/5 border border-white/10 backdrop-blur-sm shadow-2xl shadow-black/50 group">
               <div className="overflow-hidden rounded-2xl relative bg-white">
