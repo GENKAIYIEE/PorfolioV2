@@ -245,15 +245,6 @@ export const achievements = [
     image: top10,
     featured: false,
   },
-  {
-    title: '2024 Mr. IT',
-    org: 'Polytechnic College of La Union',
-    year: '2024',
-    icon: '👑',
-    description: 'Served as Mr. IT 2024, representing the IT department in events and competitions. A testament to being not just technically driven, but an active contributor to campus culture and IT community engagement.',
-    image: '/cert_placeholder.png',
-    featured: false,
-  },
 ]
 
 export const projectCategories = ['All', 'Web', 'Mobile', 'Data', 'DevOps']
