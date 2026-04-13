@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { achievements } from '../data/portfolioData'
 import { HiStar, HiX, HiExternalLink } from 'react-icons/hi'
@@ -25,12 +25,39 @@ const others = achievements.filter((a) => !a.featured)
 export default function Achievements() {
   const [selected, setSelected] = useState(null)
 
+  const closeModal = useCallback(() => {
+    if (window.history.state?.certificateModal) {
+      window.history.back()
+    } else {
+      setSelected(null)
+    }
+  }, [])
+
   // Pause auto-scroll when a certificate is being viewed
   useEffect(() => {
     if (selected) {
       window.dispatchEvent(new Event('pauseAutoScroll'))
     } else {
       window.dispatchEvent(new Event('resumeAutoScroll'))
+    }
+  }, [selected])
+
+  // Push history state when the certificate modal opens so the mobile back button closes it
+  useEffect(() => {
+    if (!selected) return
+
+    window.history.pushState({ certificateModal: true }, '', window.location.href)
+
+    const handlePopState = (event) => {
+      if (!event.state?.certificateModal) {
+        setSelected(null)
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
     }
   }, [selected])
 
@@ -100,7 +127,7 @@ export default function Achievements() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelected(null)}
+            onClick={closeModal}
           >
             {/* Backdrop */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
@@ -121,7 +148,8 @@ export default function Achievements() {
               {/* Close */}
               <button
                 className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-                onClick={() => setSelected(null)}
+                onClick={closeModal}
+                aria-label="Close certificate preview"
               >
                 <HiX className="w-4 h-4 text-white" />
               </button>
@@ -166,6 +194,17 @@ export default function Achievements() {
                       <HiStar className="w-3.5 h-3.5" /> Elite Recognition
                     </span>
                   )}
+                </div>
+
+                <div className="mt-6 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-white/10 bg-white/5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+                  >
+                    <HiX className="w-4 h-4" />
+                    Back to gallery
+                  </button>
                 </div>
               </div>
             </motion.div>
