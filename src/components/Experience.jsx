@@ -125,7 +125,7 @@ export default function Experience() {
                     {item.image && (
                       <div className="relative rounded-2xl overflow-hidden border border-white/10 mb-6 group-hover:border-blue-500/30 transition-colors">
                         <img 
-                          src={`/src/assets/${item.image}`} 
+                          src={item.image} 
                           alt={`${item.company} project`}
                           className="w-full max-h-[350px] object-cover object-top hover:scale-105 transition-transform duration-700"
                         />

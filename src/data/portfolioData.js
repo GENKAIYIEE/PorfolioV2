@@ -8,6 +8,9 @@ import innovate from '../assets/innovate.png';
 import intern from '../assets/intern.png';
 import top10 from '../assets/top10.png';
 import prog from '../assets/prog.png';
+import kip from '../assets/kip.png';
+import ecash from '../assets/ecash.png';
+import lms from '../assets/lms.png';
 
 
 export const personalInfo = {
@@ -69,7 +72,7 @@ export const experiences = [
     company: 'DOST Region 1',
     period: 'OJT Period',
     link: 'https://kip.dost1.ph/',
-    image: 'kip.png',
+    image: kip,
     bullets: [
       'Engineered the KIP Record Management System to digitize and streamline administrative operations for the regional office.',
       'Implemented an intuitive interface and secure data structure for efficient document tracking and storage.',
@@ -82,7 +85,7 @@ export const experiences = [
     company: 'DOST Region 1',
     period: 'OJT Period',
     link: 'https://ecash.dost1.ph/',
-    image: 'ecash.png',
+    image: ecash,
     bullets: [
       'Built a centralized eCash Disbursement System to facilitate secure digital financial transactions for department cashiers.',
       'Programmed core database features to ensure precise fund tracking, automated receipt generation, and reliable reporting.',
@@ -95,7 +98,7 @@ export const experiences = [
     company: 'Polytechnic College of La Union',
     period: 'Project Period',
     link: null,
-    image: 'lms.png',
+    image: lms,
     bullets: [
       'Collaborated on building a comprehensive Library Management System tailored to the localized needs of the college campus.',
       'Integrated mission-critical modules including automated book tracking, real-time student attendance monitoring, and dynamic analytics.',
