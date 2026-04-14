@@ -15,12 +15,12 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[110vh] flex items-center overflow-hidden bg-navy-950"
+      className="relative min-h-[110vh] flex items-center overflow-hidden bg-bg-primary text-text-primary"
     >
       {/* Background Accents */}
-      <div className="absolute top-0 right-0 w-[50%] h-full bg-gradient-to-l from-blue-600/5 to-transparent pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-float pointer-events-none" />
-      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[50%] h-full bg-gradient-to-l from-blue-600/5 to-transparent pointer-events-none transition-opacity dark:opacity-100 opacity-30" />
+      <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-float pointer-events-none dark:opacity-100 opacity-40" />
+      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-accent-secondary/5 rounded-full blur-[100px] pointer-events-none dark:opacity-100 opacity-20" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center w-full pt-20">
         {/* Left Content */}
@@ -34,9 +34,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass mb-6 text-xs font-medium text-blue-300 border-white/20"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass mb-6 text-xs font-medium text-blue-primary border-glass-border"
           >
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-blue-primary animate-pulse" />
             Available for new projects
           </motion.div>
 
@@ -44,7 +44,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-2"
+            className="text-4xl md:text-5xl lg:text-7xl font-bold text-text-primary mb-2"
             style={{ fontFamily: 'Clash Display, sans-serif' }}
           >
             Hi, I'm <span className="text-outline">John</span>
@@ -64,18 +64,18 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-xl md:text-2xl text-white/80 mb-8 h-8 flex items-center"
+            className="text-xl md:text-2xl text-text-primary/80 mb-8 h-8 flex items-center"
           >
-            <span className="text-white/40 mr-3">A dedicated</span>
-            <span className="text-white font-semibold">{typedText}</span>
-            <span className="w-1.5 h-6 bg-blue-500 ml-2 animate-pulse" />
+            <span className="text-text-secondary/60 mr-3">A dedicated</span>
+            <span className="text-text-primary font-semibold">{typedText}</span>
+            <span className="w-1.5 h-6 bg-blue-primary ml-2 animate-pulse" />
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-base md:text-lg text-white/50 max-w-lg mb-10 leading-relaxed"
+            className="text-base md:text-lg text-text-secondary max-w-lg mb-10 leading-relaxed"
           >
             I am a fresh graduate with a Bachelor of Science in Information Technology from the Polytechnic College of La Union (PCLU), ready to turn innovative ideas into reality.
           </motion.p>
@@ -97,7 +97,7 @@ export default function Hero() {
             </motion.button>
             <motion.a
               href="#contact"
-              className="btn-outline px-8 py-4 rounded-2xl flex items-center gap-2 border-white/10 text-white hover:bg-white/5"
+              className="btn-outline px-8 py-4 rounded-2xl flex items-center gap-2 border-glass-border text-text-primary hover:bg-glass-bg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -116,8 +116,8 @@ export default function Hero() {
         >
           <div className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[450px] mx-auto lg:ml-auto lg:mr-0">
             {/* Museum Frame Effect */}
-            <div className="relative rounded-3xl p-2 bg-white/5 border border-white/10 backdrop-blur-sm shadow-2xl shadow-black/50 group">
-              <div className="overflow-hidden rounded-2xl relative bg-white">
+            <div className="relative rounded-3xl p-2 bg-glass-bg border border-glass-border backdrop-blur-sm shadow-2xl shadow-black/20 dark:shadow-black/50 group">
+              <div className="overflow-hidden rounded-2xl relative bg-bg-secondary">
                 <img
                   src={joaquin}
                   alt={personalInfo.name}
@@ -133,12 +133,12 @@ export default function Hero() {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -bottom-6 -left-8 w-24 h-24 border-l-2 border-b-2 border-white/40 rounded-bl-3xl pointer-events-none"
+              className="absolute -bottom-6 -left-8 w-24 h-24 border-l-2 border-b-2 border-accent-primary/40 rounded-bl-3xl pointer-events-none"
             />
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute -top-6 -right-8 w-24 h-24 border-r-2 border-t-2 border-blue-500/40 rounded-tr-3xl pointer-events-none"
+              className="absolute -top-6 -right-8 w-24 h-24 border-r-2 border-t-2 border-accent-secondary/40 rounded-tr-3xl pointer-events-none"
             />
           </div>
         </motion.div>
