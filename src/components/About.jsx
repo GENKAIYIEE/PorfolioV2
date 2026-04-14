@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import CountUpModule from 'react-countup'
@@ -18,6 +18,16 @@ const fadeInUp = {
 export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 })
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const prevFocusRef = useRef(null)
+  const closeBtnRef = useRef(null)
+
+  const closeMilestones = () => {
+    if (window.history.state?.milestonesModal) {
+      window.history.back()
+    } else {
+      setIsModalOpen(false)
+    }
+  }
 
   // Pause auto-scroll while the milestones modal is open
   useEffect(() => {
@@ -25,6 +35,46 @@ export default function About() {
       window.dispatchEvent(new Event('pauseAutoScroll'))
     } else {
       window.dispatchEvent(new Event('resumeAutoScroll'))
+    }
+  }, [isModalOpen])
+
+  // Close modal with Escape key for better accessibility
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') setIsModalOpen(false)
+    }
+    if (isModalOpen) window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isModalOpen])
+
+  // Push history state when milestones modal opens so back button closes it, and manage focus
+  useEffect(() => {
+    if (!isModalOpen) return
+
+    prevFocusRef.current = document.activeElement
+
+    try {
+      window.history.pushState({ milestonesModal: true }, '', window.location.href)
+    } catch (e) {
+      // ignore (some environments may restrict pushState)
+    }
+
+    // focus close button after render
+    setTimeout(() => closeBtnRef.current?.focus(), 0)
+
+    const handlePopState = (event) => {
+      if (!event.state?.milestonesModal) {
+        setIsModalOpen(false)
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+      try {
+        prevFocusRef.current?.focus?.()
+      } catch (e) {}
     }
   }, [isModalOpen])
 
@@ -91,7 +141,7 @@ export default function About() {
             className="flex flex-wrap gap-6 mb-16"
           >
             {stats.map((stat, i) => (
-              <div key={i} className="glass-card rounded-2xl p-6 flex-1 min-w-[160px]">
+              <div key={i} className="glass-card rounded-2xl p-6 flex-1 min-w-40">
                 <div className="text-4xl font-bold gradient-text mb-1" style={{ fontFamily: 'Clash Display, sans-serif' }}>
                   {inView ? (
                     <CountUp end={stat.value} duration={2.5} suffix="+" />
@@ -154,27 +204,33 @@ export default function About() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-black/60"
-            onClick={() => setIsModalOpen(false)}
+            onClick={closeMilestones}
+            role="presentation"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="milestones-title"
               className="bg-navy-950 border border-indigo-500/20 rounded-3xl p-6 md:p-8 max-w-2xl w-full shadow-2xl relative overflow-hidden"
             >
               {/* Modal Background Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none" />
 
               <button
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-2 z-10 bg-white/5 hover:bg-white/10 rounded-full"
+                ref={closeBtnRef}
+                onClick={closeMilestones}
+                aria-label="Close milestones modal"
+                className="absolute top-4 right-4 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-black/70 ring-1 ring-white/10"
               >
                 <HiX className="w-5 h-5" />
               </button>
 
               <div className="relative z-10">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+                <h3 id="milestones-title" className="text-2xl md:text-3xl font-bold text-white mb-4" style={{ fontFamily: 'Clash Display, sans-serif' }}>
                   My Tech Journey & Milestones
                 </h3>
 
@@ -185,7 +241,7 @@ export default function About() {
                 <div className="space-y-6 mb-8">
                   {/* Milestone 1 */}
                   <div className="flex gap-4 items-start group">
-                    <div className="flex-shrink-0 mt-1">
+                    <div className="shrink-0 mt-1">
                       <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
                         <HiAcademicCap className="w-5 h-5" />
                       </div>
@@ -198,7 +254,7 @@ export default function About() {
 
                   {/* Milestone 2 */}
                   <div className="flex gap-4 items-start group">
-                    <div className="flex-shrink-0 mt-1">
+                    <div className="shrink-0 mt-1">
                       <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
                         <HiCheckCircle className="w-5 h-5" />
                       </div>
@@ -211,7 +267,7 @@ export default function About() {
 
                   {/* Milestone 3 */}
                   <div className="flex gap-4 items-start group">
-                    <div className="flex-shrink-0 mt-1">
+                    <div className="shrink-0 mt-1">
                       <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
                         <HiLightBulb className="w-5 h-5" />
                       </div>
