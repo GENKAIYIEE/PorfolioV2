@@ -224,16 +224,7 @@ export default function Achievements() {
                   )}
                 </div>
 
-                <div className="mt-6 flex justify-end">
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className="hidden sm:inline-flex items-center gap-2 px-4 py-3 rounded-full border border-white/10 bg-white/5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
-                  >
-                    <HiX className="w-4 h-4 text-white" />
-                    Back to gallery
-                  </button>
-                </div>
+                {/* Footer button removed: modal closes via top X or system back */}
               </div>
             </motion.div>
           </motion.div>
