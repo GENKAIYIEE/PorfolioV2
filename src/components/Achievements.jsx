@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { achievements } from '../data/portfolioData'
 import { HiStar, HiX, HiExternalLink } from 'react-icons/hi'
@@ -24,6 +24,8 @@ const others = achievements.filter((a) => !a.featured)
 
 export default function Achievements() {
   const [selected, setSelected] = useState(null)
+  const prevFocusRef = useRef(null)
+  const closeBtnRef = useRef(null)
 
   const closeModal = useCallback(() => {
     if (window.history.state?.certificateModal) {
@@ -46,7 +48,14 @@ export default function Achievements() {
   useEffect(() => {
     if (!selected) return
 
-    window.history.pushState({ certificateModal: true }, '', window.location.href)
+    prevFocusRef.current = document.activeElement
+
+    try {
+      window.history.pushState({ certificateModal: true }, '', window.location.href)
+    } catch (e) {}
+
+    // focus close button
+    setTimeout(() => closeBtnRef.current?.focus(), 0)
 
     const handlePopState = (event) => {
       if (!event.state?.certificateModal) {
@@ -58,8 +67,22 @@ export default function Achievements() {
 
     return () => {
       window.removeEventListener('popstate', handlePopState)
+      try {
+        prevFocusRef.current?.focus?.()
+      } catch (e) {}
     }
   }, [selected])
+
+  // Close certificate modal with Escape key for accessibility
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        closeModal()
+      }
+    }
+    if (selected) window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [selected, closeModal])
 
   return (
     <>
@@ -128,6 +151,7 @@ export default function Achievements() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
+            role="presentation"
           >
             {/* Backdrop */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
@@ -139,6 +163,9 @@ export default function Achievements() {
               exit={{ scale: 0.85, opacity: 0, y: 30 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="certificate-title"
               style={{
                 background: 'linear-gradient(135deg, rgba(10,20,50,0.95) 0%, rgba(5,10,30,0.98) 100%)',
                 border: '1px solid rgba(37,99,235,0.25)',
@@ -147,11 +174,12 @@ export default function Achievements() {
             >
               {/* Close */}
               <button
-                className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                ref={closeBtnRef}
+                className="absolute top-4 right-4 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/70 transition-colors ring-1 ring-white/10"
                 onClick={closeModal}
                 aria-label="Close certificate preview"
               >
-                <HiX className="w-4 h-4 text-white" />
+                <HiX className="w-5 h-5 text-white" />
               </button>
 
               {/* Certificate Image */}
@@ -180,7 +208,7 @@ export default function Achievements() {
                 <div className="flex items-start gap-3 mb-3">
                   <span className="text-3xl">{selected.icon}</span>
                   <div>
-                    <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+                    <h3 id="certificate-title" className="text-xl font-bold text-white" style={{ fontFamily: 'Clash Display, sans-serif' }}>
                       {selected.title}
                     </h3>
                     <p className="text-blue-400 text-sm font-medium">{selected.org}</p>
@@ -200,9 +228,9 @@ export default function Achievements() {
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-white/10 bg-white/5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+                    className="hidden sm:inline-flex items-center gap-2 px-4 py-3 rounded-full border border-white/10 bg-white/5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
                   >
-                    <HiX className="w-4 h-4" />
+                    <HiX className="w-4 h-4 text-white" />
                     Back to gallery
                   </button>
                 </div>
