@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { achievements } from '../data/portfolioData'
 import { HiStar, HiX, HiExternalLink } from 'react-icons/hi'
@@ -24,6 +24,8 @@ const others = achievements.filter((a) => !a.featured)
 
 export default function Achievements() {
   const [selected, setSelected] = useState(null)
+  const prevFocusRef = useRef(null)
+  const closeBtnRef = useRef(null)
 
   const closeModal = useCallback(() => {
     if (window.history.state?.certificateModal) {
@@ -46,7 +48,14 @@ export default function Achievements() {
   useEffect(() => {
     if (!selected) return
 
-    window.history.pushState({ certificateModal: true }, '', window.location.href)
+    prevFocusRef.current = document.activeElement
+
+    try {
+      window.history.pushState({ certificateModal: true }, '', window.location.href)
+    } catch (e) {}
+
+    // focus close button
+    setTimeout(() => closeBtnRef.current?.focus(), 0)
 
     const handlePopState = (event) => {
       if (!event.state?.certificateModal) {
@@ -58,8 +67,22 @@ export default function Achievements() {
 
     return () => {
       window.removeEventListener('popstate', handlePopState)
+      try {
+        prevFocusRef.current?.focus?.()
+      } catch (e) {}
     }
   }, [selected])
+
+  // Close certificate modal with Escape key for accessibility
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        closeModal()
+      }
+    }
+    if (selected) window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [selected, closeModal])
 
   return (
     <>
@@ -128,29 +151,33 @@ export default function Achievements() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
+            role="presentation"
           >
             {/* Backdrop */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
 
             <motion.div
-              className="relative z-10 w-full max-w-2xl rounded-2xl overflow-hidden"
+              className="bg-bg-secondary border border-glass-border shadow-2xl relative z-10 w-full max-w-2xl rounded-2xl overflow-hidden"
               initial={{ scale: 0.85, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.85, opacity: 0, y: 30 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-bg-secondary border border-glass-border shadow-2xl relative z-10 w-full max-w-2xl rounded-2xl overflow-hidden"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="certificate-title"
               style={{
                 boxShadow: '0 0 60px rgba(37,99,235,0.1), 0 40px 80px rgba(0,0,0,0.2)',
               }}
             >
               {/* Close */}
               <button
-                className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-glass-bg hover:bg-glass-border transition-colors border border-glass-border"
+                ref={closeBtnRef}
+                className="absolute top-4 right-4 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-glass-bg hover:bg-glass-border transition-colors border border-glass-border ring-1 ring-white/10"
                 onClick={closeModal}
                 aria-label="Close certificate preview"
               >
-                <HiX className="w-4 h-4 text-text-primary" />
+                <HiX className="w-5 h-5 text-text-primary" />
               </button>
 
               {/* Certificate Image */}
@@ -179,7 +206,7 @@ export default function Achievements() {
                 <div className="flex items-start gap-3 mb-3">
                   <span className="text-3xl">{selected.icon}</span>
                   <div>
-                    <h3 className="text-xl font-bold text-text-primary" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+                    <h3 id="certificate-title" className="text-xl font-bold text-text-primary" style={{ fontFamily: 'Clash Display, sans-serif' }}>
                       {selected.title}
                     </h3>
                     <p className="text-blue-primary text-sm font-semibold">{selected.org}</p>
@@ -195,16 +222,7 @@ export default function Achievements() {
                   )}
                 </div>
 
-                <div className="mt-6 flex justify-end">
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-glass-border bg-glass-bg text-sm font-semibold text-text-primary hover:bg-glass-border transition-colors"
-                  >
-                    <HiX className="w-4 h-4" />
-                    Back to gallery
-                  </button>
-                </div>
+                {/* Footer button removed: modal closes via top X or system back */}
               </div>
             </motion.div>
           </motion.div>
