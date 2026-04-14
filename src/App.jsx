@@ -17,7 +17,7 @@ const Contact = lazy(() => import('./components/Contact'))
 function SectionFallback() {
   return (
     <div className="flex items-center justify-center py-32">
-      <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+      <div className="w-8 h-8 border-2 border-glass-border border-t-blue-primary rounded-full animate-spin" />
     </div>
   )
 }

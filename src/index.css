@@ -1,15 +1,83 @@
 @import "tailwindcss";
 
+/* ─── Theme Variables ─── */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent-primary: #2563eb;
+  --accent-secondary: #60a5fa;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.4);
+  --card-hover: rgba(255, 255, 255, 0.6);
+  --border-glow: rgba(0, 0, 0, 0.05);
+  --selection-bg: rgba(37, 99, 235, 0.15);
+  --scrollbar-track: #f1f5f9;
+  --text-outline-color: rgba(0, 0, 0, 0.1);
+
+  /* Education Levels */
+  --edu-college-border: rgba(37, 99, 235, 0.3);
+  --edu-college-glow: rgba(37, 99, 235, 0.05);
+  --edu-college-dot: #2563eb;
+  --edu-shs-border: rgba(139, 92, 246, 0.3);
+  --edu-shs-glow: rgba(139, 92, 246, 0.05);
+  --edu-shs-dot: #8b5cf6;
+  --edu-jhs-border: rgba(6, 182, 212, 0.3);
+  --edu-jhs-glow: rgba(6, 182, 212, 0.05);
+  --edu-jhs-dot: #06b6d4;
+  --edu-elem56-border: rgba(16, 185, 129, 0.3);
+  --edu-elem56-glow: rgba(16, 185, 129, 0.05);
+  --edu-elem56-dot: #10b981;
+  --edu-elemK4-border: rgba(245, 158, 11, 0.3);
+  --edu-elemK4-glow: rgba(245, 158, 11, 0.05);
+  --edu-elemK4-dot: #f59e0b;
+}
+
+.dark {
+  --bg-primary: #020617;
+  --bg-secondary: #0b1120;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent-primary: #2563eb;
+  --accent-secondary: #60a5fa;
+  --glass-bg: rgba(30, 41, 59, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(30, 41, 59, 0.3);
+  --card-hover: rgba(30, 41, 59, 0.5);
+  --border-glow: rgba(255, 255, 255, 0.05);
+  --selection-bg: rgba(99, 102, 241, 0.3);
+  --scrollbar-track: #020617;
+  --text-outline-color: rgba(255, 255, 255, 0.15);
+
+  /* Education Levels Dark */
+  --edu-college-border: rgba(37, 99, 235, 0.55);
+  --edu-college-glow: rgba(37, 99, 235, 0.12);
+  --edu-shs-border: rgba(139, 92, 246, 0.55);
+  --edu-shs-glow: rgba(139, 92, 246, 0.12);
+  --edu-jhs-border: rgba(6, 182, 212, 0.55);
+  --edu-jhs-glow: rgba(6, 182, 212, 0.12);
+  --edu-elem56-border: rgba(16, 185, 129, 0.55);
+  --edu-elem56-glow: rgba(16, 185, 129, 0.12);
+  --edu-elemK4-border: rgba(245, 158, 11, 0.55);
+  --edu-elemK4-glow: rgba(245, 158, 11, 0.12);
+}
+
 /* ─── Custom Theme ─── */
 @theme {
-  --color-navy-950: #020617;
-  --color-navy-900: #0b1120;
-  --color-navy-800: #1e293b;
-  --color-navy-700: #334155;
-  --color-navy-600: #475569;
-  --color-blue-primary: #2563eb;
-  --color-blue-light: #60a5fa;
-  --color-blue-dark: #1e3a8a;
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-blue-primary: var(--accent-primary);
+  --color-blue-light: var(--accent-secondary);
+  
+  /* Retaining legacy names for compatibility during transition if needed, 
+     but ideally components should migrate to semantic names */
+  --color-navy-950: var(--bg-primary);
+  --color-navy-900: var(--bg-secondary);
+  
   --font-clash: 'Clash Display', sans-serif;
   --font-inter: 'Inter', sans-serif;
 }
@@ -20,6 +88,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.1s ease;
   }
 
   html {
@@ -28,14 +97,14 @@
 
   body {
     font-family: var(--font-inter);
-    background-color: var(--color-navy-950);
-    color: #ffffff;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
   }
 
   ::selection {
-    background-color: rgba(99, 102, 241, 0.4);
-    color: #ffffff;
+    background-color: var(--selection-bg);
+    color: inherit;
   }
 
   ::-webkit-scrollbar {
@@ -43,48 +112,48 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--color-navy-950);
+    background: var(--scrollbar-track);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-blue-primary);
+    background: var(--accent-primary);
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-blue-light);
+    background: var(--accent-secondary);
   }
 }
 
 /* ─── Glass Effect ─── */
 @layer components {
   .glass {
-    background: rgba(30, 41, 59, 0.5);
+    background: var(--glass-bg);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
   }
 
   .glass-strong {
-    background: rgba(11, 17, 32, 0.8);
+    background: var(--glass-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--glass-border);
   }
 
   .glass-card {
-    background: rgba(30, 41, 59, 0.4);
+    background: var(--card-bg);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
     transition: all 0.3s ease;
     will-change: transform, opacity;
   }
 
   .glass-card:hover {
-    background: rgba(30, 41, 59, 0.6);
+    background: var(--card-hover);
     border-color: rgba(37, 99, 235, 0.3);
-    box-shadow: 0 0 30px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
   }
 
   /* ─── Glow Effects ─── */
@@ -93,28 +162,28 @@
   }
 
   .glow-white {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 15px var(--border-glow), 0 0 30px var(--border-glow);
   }
 
   .glow-text {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 20px rgba(var(--text-primary), 0.3);
   }
 
   .border-glow {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05), 0 0 20px rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 0 20px var(--border-glow), 0 0 20px var(--border-glow);
   }
 
   /* ─── Gradient Text ─── */
   .gradient-text {
-    background: linear-gradient(135deg, #ffffff, #60a5fa);
+    background: linear-gradient(135deg, var(--text-primary), var(--accent-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-reverse {
-    background: linear-gradient(135deg, #60a5fa, #ffffff);
+    background: linear-gradient(135deg, var(--accent-secondary), var(--text-primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -122,7 +191,7 @@
 
   /* ─── Buttons ─── */
   .btn-primary {
-    background: linear-gradient(135deg, #2563eb, #1e40af);
+    background: linear-gradient(135deg, var(--accent-primary), #1e40af);
     color: white;
     padding: 0.75rem 2rem;
     border-radius: 0.75rem;
@@ -136,33 +205,14 @@
     gap: 0.5rem;
   }
 
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
   .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 0 30px rgba(37, 99, 235, 0.4), 0 10px 40px rgba(37, 99, 235, 0.2);
   }
 
-  .btn-primary:hover::before {
-    opacity: 1;
-  }
-
-  .btn-primary span,
-  .btn-primary svg {
-    position: relative;
-    z-index: 1;
-  }
-
   .btn-outline {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
     padding: 0.75rem 2rem;
     border-radius: 0.75rem;
     font-weight: 600;
@@ -175,10 +225,10 @@
   }
 
   .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: #ffffff;
+    background: var(--glass-bg);
+    border-color: var(--text-primary);
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   }
 
   /* ─── Section Title ─── */
@@ -189,6 +239,7 @@
     letter-spacing: -0.02em;
     position: relative;
     display: inline-block;
+    color: var(--text-primary);
   }
 
   .section-title::after {
@@ -198,7 +249,7 @@
     left: 0;
     width: 60px;
     height: 3px;
-    background: linear-gradient(90deg, #2563eb, #ffffff);
+    background: linear-gradient(90deg, var(--accent-primary), var(--text-primary));
     border-radius: 2px;
   }
 
@@ -209,12 +260,12 @@
 
   .float-label-group input,
   .float-label-group textarea {
-    background: rgba(30, 41, 59, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
     border-radius: 0.75rem;
     padding: 1rem;
     padding-top: 1.5rem;
-    color: white;
+    color: var(--text-primary);
     width: 100%;
     outline: none;
     transition: all 0.3s ease;
@@ -223,8 +274,8 @@
 
   .float-label-group input:focus,
   .float-label-group textarea:focus {
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.1);
   }
 
   .float-label-group label {
@@ -232,7 +283,7 @@
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-secondary);
     pointer-events: none;
     transition: all 0.3s ease;
     font-size: 0.95rem;
@@ -250,45 +301,45 @@
     top: 0.5rem;
     transform: none;
     font-size: 0.7rem;
-    color: #60a5fa;
+    color: var(--accent-secondary);
   }
 
   /* ─── Skill Badge ─── */
   .skill-badge {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
     padding: 0.4rem 1rem;
     border-radius: 9999px;
     font-size: 0.8rem;
     font-weight: 500;
-    color: #e2e8f0;
+    color: var(--text-secondary);
     transition: all 0.3s ease;
     cursor: default;
   }
 
   .skill-badge:hover {
     background: rgba(37, 99, 235, 0.1);
-    border-color: #2563eb;
-    box-shadow: 0 0 15px rgba(37, 99, 235, 0.2);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.1);
     transform: translateY(-2px);
-    color: white;
+    color: var(--accent-primary);
   }
 
   /* ─── Tech Pill ─── */
   .tech-pill {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     font-size: 0.7rem;
     font-weight: 500;
-    color: #ffffff;
+    color: var(--text-primary);
     transition: all 0.3s ease;
   }
 
   .tech-pill:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #ffffff;
+    background: var(--card-hover);
+    border-color: var(--text-primary);
   }
 
   /* ─── Timeline ─── */
@@ -298,7 +349,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(180deg, transparent, #2563eb, #ffffff, transparent);
+    background: linear-gradient(180deg, transparent, var(--accent-primary), var(--text-primary), transparent);
     transform: translateX(-50%);
   }
 
@@ -306,9 +357,9 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #ffffff;
-    border: 3px solid #1e3a8a;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    background: var(--text-primary);
+    border: 3px solid var(--accent-primary);
+    box-shadow: 0 0 15px rgba(var(--accent-primary), 0.5);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -364,7 +415,7 @@
   will-change: transform;
 }
 
-  .animate-spin-slow {
+.animate-spin-slow {
   animation: spin-slow 20s linear infinite;
   will-change: transform;
 }
@@ -386,7 +437,7 @@
 
 /* ─── Custom Styles ─── */
 .text-outline {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  -webkit-text-stroke: 1px var(--text-outline-color);
   color: transparent;
 }
 

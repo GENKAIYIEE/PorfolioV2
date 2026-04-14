@@ -31,8 +31,8 @@ export default function About() {
   return (
     <section id="about" className="relative py-16 md:py-20 overflow-hidden">
       {/* Background accents */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none dark:opacity-100 opacity-40" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-secondary/5 rounded-full blur-[80px] pointer-events-none dark:opacity-100 opacity-20" />
 
       <div className="max-w-7xl mx-auto px-6" ref={ref}>
         {/* Section Label */}
@@ -43,10 +43,10 @@ export default function About() {
           viewport={{ once: true }}
           className="mb-6"
         >
-          <span className="text-white text-sm font-medium uppercase tracking-widest mb-3 block">
+          <span className="text-text-secondary text-sm font-medium uppercase tracking-widest mb-3 block">
             Get To Know Me
           </span>
-          <h2 className="section-title text-white">About Me</h2>
+          <h2 className="section-title">About Me</h2>
         </motion.div>
 
         {/* Content Layout */}
@@ -59,7 +59,7 @@ export default function About() {
             custom={1}
             className="mb-12"
           >
-            <p className="text-white/80 text-lg md:text-xl font-medium leading-relaxed mb-6">
+            <p className="text-text-primary/90 text-lg md:text-xl font-medium leading-relaxed mb-6">
               I bridge the gap between innovative ideas and seamless reality. With hands-on experience in both software architecture and hardware engineering, my focus is always on delivering complete solutions that provide tangible value.
             </p>
               <div className="flex flex-wrap gap-4">
@@ -99,7 +99,7 @@ export default function About() {
                     '0+'
                   )}
                 </div>
-                <div className="text-sm text-white/40 uppercase tracking-wider font-medium">{stat.label}</div>
+                <div className="text-sm text-text-secondary uppercase tracking-wider font-medium">{stat.label}</div>
               </div>
             ))}
           </motion.div>
@@ -113,7 +113,7 @@ export default function About() {
           viewport={{ once: true }}
           custom={4}
         >
-          <h3 className="text-xl font-semibold text-white mb-8" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+          <h3 className="text-xl font-semibold text-text-primary mb-8" style={{ fontFamily: 'Clash Display, sans-serif' }}>
             My Tech Stack
           </h3>
           <div className="grid md:grid-cols-3 gap-8">
@@ -126,7 +126,7 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 + ci * 0.1 }}
               >
-                <h4 className="text-sm font-medium text-white uppercase tracking-wider mb-4">
+                <h4 className="text-sm font-medium text-text-primary uppercase tracking-wider mb-4">
                   {category.title}
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -161,24 +161,24 @@ export default function About() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-navy-950 border border-indigo-500/20 rounded-3xl p-6 md:p-8 max-w-2xl w-full shadow-2xl relative overflow-hidden"
+              className="bg-bg-secondary border border-glass-border rounded-3xl p-6 md:p-8 max-w-2xl w-full shadow-2xl relative overflow-hidden"
             >
               {/* Modal Background Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none" />
 
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-2 z-10 bg-white/5 hover:bg-white/10 rounded-full"
+                className="absolute top-4 right-4 text-text-secondary hover:text-text-primary transition-colors p-2 z-10 bg-glass-bg hover:bg-glass-border rounded-full"
               >
                 <HiX className="w-5 h-5" />
               </button>
 
               <div className="relative z-10">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+                <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-4" style={{ fontFamily: 'Clash Display, sans-serif' }}>
                   My Tech Journey & Milestones
                 </h3>
 
-                <p className="text-white/70 text-base md:text-lg mb-8 leading-relaxed">
+                <p className="text-text-secondary text-base md:text-lg mb-8 leading-relaxed">
                   My journey has been defined by hands-on creation and problem-solving. Beyond writing clean code, I thrive on engineering complete, end-to-end systems that make an immediate positive impact on their users.
                 </p>
 
@@ -191,8 +191,8 @@ export default function About() {
                       </div>
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">DOST Ilocos Region OJT</h4>
-                      <p className="text-white/60 leading-relaxed">Collaborated with a team to develop and successfully deploy 2 fully functional, active systems.</p>
+                      <h4 className="text-lg font-semibold text-text-primary mb-1">DOST Ilocos Region OJT</h4>
+                      <p className="text-text-secondary leading-relaxed">Collaborated with a team to develop and successfully deploy 2 fully functional, active systems.</p>
                     </div>
                   </div>
 
@@ -204,8 +204,8 @@ export default function About() {
                       </div>
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">Leaving a Legacy</h4>
-                      <p className="text-white/60 leading-relaxed">Built and deployed a live system for PCLU that is currently serving daily users on campus.</p>
+                      <h4 className="text-lg font-semibold text-text-primary mb-1">Leaving a Legacy</h4>
+                      <p className="text-text-secondary leading-relaxed">Built and deployed a live system for PCLU that is currently serving daily users on campus.</p>
                     </div>
                   </div>
 
@@ -217,14 +217,14 @@ export default function About() {
                       </div>
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">Hardware Leadership</h4>
-                      <p className="text-white/60 leading-relaxed">Led the creation of the 'Eye Cane Walk,' an Arduino-powered smart cane designed to assist individuals with visual impairments.</p>
+                      <h4 className="text-lg font-semibold text-text-primary mb-1">Hardware Leadership</h4>
+                      <p className="text-text-secondary leading-relaxed">Led the creation of the 'Eye Cane Walk,' an Arduino-powered smart cane designed to assist individuals with visual impairments.</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-white/10">
-                  <p className="text-white italic font-medium leading-relaxed">
+                <div className="pt-6 border-t border-glass-border">
+                  <p className="text-text-primary italic font-medium leading-relaxed">
                     "Whether I am developing web applications or wiring smart hardware, I am passionate about bridging the gap between innovative ideas and seamless reality."
                   </p>
                 </div>
