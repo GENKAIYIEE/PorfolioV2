@@ -86,12 +86,12 @@ export default function Achievements() {
 
   return (
     <>
-      <section id="achievements" className="relative py-28 md:py-36 overflow-hidden border-t border-white/5">
+      <section id="achievements" className="relative py-28 md:py-36 overflow-hidden border-t border-glass-border">
         {/* Ambient background glow */}
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full pointer-events-none"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full pointer-events-none dark:opacity-10 opacity-30"
           style={{
-            background: 'radial-gradient(ellipse, rgba(37,99,235,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, var(--accent-primary) 0%, transparent 70%)',
             filter: 'blur(60px)',
           }}
         />
@@ -105,11 +105,11 @@ export default function Achievements() {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <span className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
+            <span className="text-blue-primary text-sm font-semibold uppercase tracking-widest mb-3 block">
               Recognition &amp; Growth
             </span>
-            <h2 className="section-title text-white">Achievements &amp; Certifications</h2>
-            <p className="text-white/50 mt-3 max-w-xl text-sm leading-relaxed">
+            <h2 className="section-title">Achievements &amp; Certifications</h2>
+            <p className="text-text-secondary mt-3 max-w-xl text-sm leading-relaxed">
               A curated record of academic honors, competitive recognitions, and professional milestones earned throughout my journey in Information Technology.
             </p>
           </motion.div>
@@ -135,7 +135,7 @@ export default function Achievements() {
             viewport={{ once: true }}
             className="mt-16 text-center"
           >
-            <p className="text-white/30 text-xs uppercase tracking-widest">
+            <p className="text-text-secondary/40 text-xs uppercase tracking-widest">
               Click any card to view the certificate
             </p>
           </motion.div>
@@ -157,7 +157,7 @@ export default function Achievements() {
             <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
 
             <motion.div
-              className="relative z-10 w-full max-w-2xl rounded-2xl overflow-hidden"
+              className="bg-bg-secondary border border-glass-border shadow-2xl relative z-10 w-full max-w-2xl rounded-2xl overflow-hidden"
               initial={{ scale: 0.85, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.85, opacity: 0, y: 30 }}
@@ -167,23 +167,21 @@ export default function Achievements() {
               aria-modal="true"
               aria-labelledby="certificate-title"
               style={{
-                background: 'linear-gradient(135deg, rgba(10,20,50,0.95) 0%, rgba(5,10,30,0.98) 100%)',
-                border: '1px solid rgba(37,99,235,0.25)',
-                boxShadow: '0 0 60px rgba(37,99,235,0.2), 0 40px 80px rgba(0,0,0,0.6)',
+                boxShadow: '0 0 60px rgba(37,99,235,0.1), 0 40px 80px rgba(0,0,0,0.2)',
               }}
             >
               {/* Close */}
               <button
                 ref={closeBtnRef}
-                className="absolute top-4 right-4 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/70 transition-colors ring-1 ring-white/10"
+                className="absolute top-4 right-4 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-glass-bg hover:bg-glass-border transition-colors border border-glass-border ring-1 ring-white/10"
                 onClick={closeModal}
                 aria-label="Close certificate preview"
               >
-                <HiX className="w-5 h-5 text-white" />
+                <HiX className="w-5 h-5 text-text-primary" />
               </button>
 
               {/* Certificate Image */}
-              <div className="relative w-full bg-[#060d1f] overflow-hidden flex items-center justify-center"
+              <div className="relative w-full bg-bg-primary overflow-hidden flex items-center justify-center"
                 style={{ minHeight: '180px' }}
               >
                 {selected.image ? (
@@ -194,13 +192,13 @@ export default function Achievements() {
                     style={{ maxHeight: '65vh' }}
                   />
                 ) : (
-                  <div className="flex flex-col items-center justify-center py-16 gap-3 text-white/20">
+                  <div className="flex flex-col items-center justify-center py-16 gap-3 text-text-secondary/20">
                     <HiTrophy className="w-14 h-14" />
                     <span className="text-sm tracking-widest uppercase">Certificate Coming Soon</span>
                   </div>
                 )}
                 {/* Gradient overlay bottom */}
-                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#060d1f] to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg-primary to-transparent pointer-events-none" />
               </div>
 
               {/* Info */}
@@ -208,17 +206,17 @@ export default function Achievements() {
                 <div className="flex items-start gap-3 mb-3">
                   <span className="text-3xl">{selected.icon}</span>
                   <div>
-                    <h3 id="certificate-title" className="text-xl font-bold text-white" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+                    <h3 id="certificate-title" className="text-xl font-bold text-text-primary" style={{ fontFamily: 'Clash Display, sans-serif' }}>
                       {selected.title}
                     </h3>
-                    <p className="text-blue-400 text-sm font-medium">{selected.org}</p>
+                    <p className="text-blue-primary text-sm font-semibold">{selected.org}</p>
                   </div>
                 </div>
-                <p className="text-white/60 text-sm leading-relaxed mt-3">{selected.description}</p>
+                <p className="text-text-secondary text-sm leading-relaxed mt-3">{selected.description}</p>
                 <div className="mt-5 flex items-center justify-between">
-                  <span className="text-white/30 text-xs font-mono">{selected.year}</span>
+                  <span className="text-text-secondary/40 text-xs font-mono">{selected.year}</span>
                   {selected.featured && (
-                    <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-yellow-400">
+                    <span className="flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-yellow-500">
                       <HiStar className="w-3.5 h-3.5" /> Elite Recognition
                     </span>
                   )}
@@ -243,19 +241,16 @@ function FeaturedCard({ item, index, onOpen }) {
       onClick={onOpen}
     >
       <div
-        className="relative rounded-2xl overflow-hidden h-full flex flex-col"
+        className="relative rounded-2xl overflow-hidden h-full flex flex-col glass-card"
         style={{
-          background: 'linear-gradient(135deg, rgba(15,26,64,0.9) 0%, rgba(7,14,38,0.95) 100%)',
-          border: '1px solid rgba(37,99,235,0.2)',
           boxShadow: '0 0 0 0 rgba(37,99,235,0)',
-          transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(37,99,235,0.5)'
-          e.currentTarget.style.boxShadow = '0 0 30px rgba(37,99,235,0.15)'
+          e.currentTarget.style.borderColor = 'var(--edu-college-border)'
+          e.currentTarget.style.boxShadow = '0 10px 30px rgba(37,99,235,0.1)'
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(37,99,235,0.2)'
+          e.currentTarget.style.borderColor = 'var(--glass-border)'
           e.currentTarget.style.boxShadow = '0 0 0 0 rgba(37,99,235,0)'
         }}
       >
@@ -273,10 +268,10 @@ function FeaturedCard({ item, index, onOpen }) {
             </div>
           )}
           {/* Bottom fade */}
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#070e26] to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg-secondary/40 to-transparent" />
           {/* Badge */}
           {item.featured && (
-            <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-yellow-400/10 border border-yellow-400/25 text-[9px] font-bold text-yellow-300 uppercase tracking-widest backdrop-blur-md">
+            <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/25 text-[9px] font-bold text-yellow-600 dark:text-yellow-300 uppercase tracking-widest backdrop-blur-md">
               <HiStar className="w-3 h-3" /> Featured
             </div>
           )}
@@ -293,17 +288,17 @@ function FeaturedCard({ item, index, onOpen }) {
           <div className="flex items-center gap-2">
             <span className="text-2xl">{item.icon}</span>
             <h3
-              className="text-base font-bold text-white group-hover:text-blue-300 transition-colors"
+              className="text-base font-bold text-text-primary group-hover:text-blue-primary transition-colors"
               style={{ fontFamily: 'Clash Display, sans-serif' }}
             >
               {item.title}
             </h3>
           </div>
-          <p className="text-blue-400/70 text-xs font-medium">{item.org}</p>
-          <p className="text-white/45 text-xs leading-relaxed mt-1 line-clamp-3">{item.description}</p>
-          <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-white/30 text-[10px] font-mono">{item.year}</span>
-            <span className="text-blue-400/60 text-[10px] group-hover:text-blue-400 transition-colors">
+          <p className="text-blue-primary/70 text-xs font-semibold">{item.org}</p>
+          <p className="text-text-secondary text-xs leading-relaxed mt-1 line-clamp-3">{item.description}</p>
+          <div className="mt-auto pt-3 border-t border-glass-border flex items-center justify-between">
+            <span className="text-text-secondary/40 text-[10px] font-mono">{item.year}</span>
+            <span className="text-blue-primary/60 text-[10px] group-hover:text-blue-primary transition-colors">
               Click to view →
             </span>
           </div>
@@ -322,19 +317,15 @@ function SecondaryCard({ item, index, onOpen }) {
       onClick={onOpen}
     >
       <div
-        className="relative rounded-xl p-5 h-full flex gap-4"
+        className="relative rounded-xl p-5 h-full flex gap-4 glass-card"
         style={{
-          background: 'rgba(10,18,46,0.7)',
-          border: '1px solid rgba(255,255,255,0.05)',
           transition: 'border-color 0.3s, background 0.3s',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(37,99,235,0.3)'
-          e.currentTarget.style.background = 'rgba(15,26,64,0.85)'
+          e.currentTarget.style.borderColor = 'var(--edu-college-border)'
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'
-          e.currentTarget.style.background = 'rgba(10,18,46,0.7)'
+          e.currentTarget.style.borderColor = 'var(--glass-border)'
         }}
       >
         {/* Thumbnail */}
@@ -355,16 +346,16 @@ function SecondaryCard({ item, index, onOpen }) {
         {/* Content */}
         <div className="flex flex-col gap-1 flex-1 min-w-0">
           <h3
-            className="text-sm font-bold text-white group-hover:text-blue-300 transition-colors leading-snug truncate"
+            className="text-sm font-bold text-text-primary group-hover:text-blue-primary transition-colors leading-snug truncate"
             style={{ fontFamily: 'Clash Display, sans-serif' }}
           >
             {item.title}
           </h3>
-          <p className="text-white/40 text-xs">{item.org}</p>
-          <p className="text-white/30 text-xs leading-relaxed mt-1 line-clamp-2">{item.description}</p>
+          <p className="text-text-secondary/60 text-xs">{item.org}</p>
+          <p className="text-text-secondary text-xs leading-relaxed mt-1 line-clamp-2">{item.description}</p>
           <div className="mt-auto pt-2 flex items-center justify-between">
-            <span className="text-white/25 text-[9px] font-mono">{item.year}</span>
-            <span className="text-[9px] text-blue-400/0 group-hover:text-blue-400/60 transition-colors">
+            <span className="text-text-secondary/40 text-[9px] font-mono">{item.year}</span>
+            <span className="text-[9px] text-blue-primary/0 group-hover:text-blue-primary/60 transition-colors">
               view →
             </span>
           </div>

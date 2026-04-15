@@ -24,7 +24,7 @@ export default function Projects() {
   const featured = projects.find((p) => p.featured)
 
   return (
-    <section id="projects" className="relative py-28 md:py-36 overflow-hidden border-t border-white/5">
+    <section id="projects" className="relative py-28 md:py-36 overflow-hidden border-t border-glass-border">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -34,10 +34,10 @@ export default function Projects() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <span className="text-white text-sm font-medium uppercase tracking-widest mb-3 block">
+          <span className="text-text-secondary text-sm font-medium uppercase tracking-widest mb-3 block">
             Selected Work
           </span>
-          <h2 className="section-title text-white">Featured Projects</h2>
+          <h2 className="section-title">Featured Projects</h2>
         </motion.div>
 
         {/* Featured Project */}
@@ -49,20 +49,20 @@ export default function Projects() {
             transition={{ duration: 0.6 }}
             className="mb-20"
           >
-            <div className="bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden group">
+            <div className="bg-bg-secondary border border-glass-border rounded-3xl overflow-hidden group">
               <div className="grid md:grid-cols-5 gap-0">
                 {/* Content side - takes up more space for typography focus */}
-                <div className="md:col-span-3 p-10 md:p-14 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
-                  <span className="text-xs font-medium text-white uppercase tracking-widest mb-4 block">
+                <div className="md:col-span-3 p-10 md:p-14 flex flex-col justify-center border-b md:border-b-0 md:border-r border-glass-border">
+                  <span className="text-xs font-medium text-text-secondary uppercase tracking-widest mb-4 block">
                     Featured Output
                   </span>
                   <h3
-                    className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight group-hover:text-blue-400 transition-colors"
+                    className="text-3xl md:text-5xl font-bold text-text-primary mb-6 tracking-tight group-hover:text-blue-primary transition-colors"
                     style={{ fontFamily: 'Clash Display, sans-serif' }}
                   >
                     {featured.title}
                   </h3>
-                  <p className="text-white/50 text-base md:text-lg leading-relaxed mb-10 max-w-2xl">
+                  <p className="text-text-secondary text-base md:text-lg leading-relaxed mb-10 max-w-2xl">
                     {featured.description}
                   </p>
 
@@ -80,7 +80,7 @@ export default function Projects() {
                         href={featured.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-white/50 hover:text-white transition-colors uppercase tracking-widest text-sm font-medium"
+                        className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors uppercase tracking-widest text-sm font-medium"
                         whileHover={{ x: 5 }}
                         aria-label={`View ${featured.title} on GitHub`}
                       >
@@ -93,7 +93,7 @@ export default function Projects() {
                         href={featured.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-white hover:text-blue-300 transition-colors uppercase tracking-widest text-sm font-medium"
+                        className="flex items-center gap-2 text-text-primary hover:text-blue-primary transition-colors uppercase tracking-widest text-sm font-medium"
                         whileHover={{ x: 5 }}
                         aria-label={`View ${featured.title} live demo`}
                       >
@@ -105,11 +105,11 @@ export default function Projects() {
                 </div>
 
                 {/* Abstract Visual Side Instead of Placeholder */}
-                <div className="md:col-span-2 relative h-64 md:h-auto overflow-hidden bg-[#0a0f1d] flex items-center justify-center">
-                  <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPjwvc3ZnPg==')] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
+                <div className="md:col-span-2 relative h-64 md:h-auto overflow-hidden bg-bg-primary flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPjwvc3ZnPg==')] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)] dark:opacity-20 opacity-40" />
                   <div className="text-center relative z-10 px-8">
-                    <div className="text-4xl text-indigo-500/30 mb-4 font-serif italic">01</div>
-                    <div className="text-white/20 uppercase tracking-[0.3em] text-xs font-mono">Project Overview</div>
+                    <div className="text-4xl text-blue-primary opacity-20 dark:opacity-30 mb-4 font-serif italic">01</div>
+                    <div className="text-text-secondary/40 uppercase tracking-[0.3em] text-xs font-mono">Project Overview</div>
                   </div>
                 </div>
               </div>
@@ -131,13 +131,13 @@ export default function Projects() {
               onClick={() => setActiveFilter(cat)}
               className="relative pb-2 text-sm font-medium transition-all group"
               style={{
-                color: activeFilter === cat ? '#ffffff' : 'rgba(255,255,255,0.4)',
+                color: activeFilter === cat ? 'var(--text-primary)' : 'var(--text-secondary)',
               }}
               aria-label={`Filter projects by ${cat}`}
             >
               <span className="relative z-10 uppercase tracking-widest">{cat}</span>
               <div 
-                className={`absolute bottom-0 left-0 h-[2px] transition-all duration-300 bg-white
+                className={`absolute bottom-0 left-0 h-[2px] transition-all duration-300 bg-blue-primary
                   ${activeFilter === cat ? 'w-full' : 'w-0 group-hover:w-1/2'}`}
               />
             </button>
@@ -158,22 +158,22 @@ export default function Projects() {
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   className="h-full"
                 >
-                  <div className="bg-white/[0.015] border border-white/[0.03] rounded-3xl p-8 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 group h-full flex flex-col relative overflow-hidden">
+                  <div className="glass-card rounded-3xl p-8 hover:bg-glass-bg hover:border-blue-primary transition-all duration-500 group h-full flex flex-col relative overflow-hidden">
                     {/* Top Section */}
                     <div className="flex justify-between items-start mb-8 relative z-10">
-                      <div className="px-3 py-1 rounded-md text-[10px] font-semibold uppercase tracking-widest bg-blue-500/10 text-white">
+                      <div className="px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest bg-blue-primary/10 text-blue-primary dark:text-white">
                         {project.category}
                       </div>
                       
                       {/* Interactive Links in Corner */}
                       <div className="flex gap-3 opacity-50 group-hover:opacity-100 transition-opacity">
                         {project.github && (
-                          <a href={project.github} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                          <a href={project.github} target="_blank" rel="noopener noreferrer" className="hover:text-blue-primary transition-colors text-text-primary">
                             <FaGithub className="w-5 h-5" />
                           </a>
                         )}
                         {project.demo && (
-                          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="hover:text-blue-primary transition-colors text-text-primary">
                             <HiExternalLink className="w-5 h-5" />
                           </a>
                         )}
@@ -183,12 +183,12 @@ export default function Projects() {
                     {/* Content Section */}
                     <div className="flex-1 relative z-10">
                       <h3
-                        className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors tracking-tight"
+                        className="text-2xl font-bold text-text-primary mb-4 group-hover:text-blue-primary transition-colors tracking-tight"
                         style={{ fontFamily: 'Clash Display, sans-serif' }}
                       >
                         {project.title}
                       </h3>
-                      <p className="text-sm text-white/50 leading-relaxed mb-8 flex-1">
+                      <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-1">
                         {project.description}
                       </p>
                     </div>
@@ -196,7 +196,7 @@ export default function Projects() {
                     {/* Tech Stack Footer */}
                     <div className="flex flex-wrap gap-2 mt-auto relative z-10">
                       {project.tech.map((t) => (
-                        <span key={t} className="text-white/30 text-[11px] uppercase tracking-wider font-mono">
+                        <span key={t} className="text-text-secondary/60 text-[11px] uppercase tracking-wider font-mono">
                           {t}
                         </span>
                       ))}

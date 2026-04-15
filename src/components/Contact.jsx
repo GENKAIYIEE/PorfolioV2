@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { personalInfo } from '../data/portfolioData'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { HiMail, HiCheck, HiPaperAirplane } from 'react-icons/hi'
+import emailjs from '@emailjs/browser'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -31,16 +32,24 @@ export default function Contact() {
     e.preventDefault()
     setSending(true)
 
-    // Simulate sending (replace with EmailJS)
-    // import emailjs from '@emailjs/browser'
-    // await emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formRef.current, 'YOUR_PUBLIC_KEY')
-    await new Promise((r) => setTimeout(r, 1500))
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
 
-    setSending(false)
-    setSent(true)
-    setFormState({ name: '', email: '', message: '' })
+      setSending(false)
+      setSent(true)
+      setFormState({ name: '', email: '', message: '' })
 
-    setTimeout(() => setSent(false), 4000)
+      setTimeout(() => setSent(false), 4000)
+    } catch (error) {
+      console.error('Failed to send email:', error.text || error)
+      setSending(false)
+      alert('Failed to send message. Please check your credentials or try again later.')
+    }
   }
 
   const socialLinks = [
@@ -65,7 +74,7 @@ export default function Contact() {
   ]
 
   return (
-    <section id="contact" className="relative py-28 md:py-36 overflow-hidden border-t border-white/5">
+    <section id="contact" className="relative py-28 md:py-36 overflow-hidden border-t border-glass-border">
 
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
@@ -76,10 +85,10 @@ export default function Contact() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <span className="text-white text-sm font-medium uppercase tracking-widest mb-3 block">
+          <span className="text-text-secondary text-sm font-medium uppercase tracking-widest mb-3 block">
             Let's Connect
           </span>
-          <h2 className="section-title text-white">Get In Touch</h2>
+          <h2 className="section-title">Get In Touch</h2>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16">
@@ -91,17 +100,17 @@ export default function Contact() {
             viewport={{ once: true }}
             className="flex flex-col justify-center"
           >
-            <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-10 mb-8 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110" />
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+            <div className="bg-bg-secondary border border-glass-border rounded-3xl p-8 md:p-10 mb-8 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-primary/10 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110" />
+              <h3 className="text-3xl md:text-4xl font-bold text-text-primary mb-4 tracking-tight" style={{ fontFamily: 'Clash Display, sans-serif' }}>
                 Ready to build something <span className="text-blue-primary">exceptional?</span>
               </h3>
-              <p className="text-white/60 text-lg">
+              <p className="text-text-secondary/80 text-lg">
                 Let's turn your ideas into a digital reality.
               </p>
             </div>
 
-            <p className="text-white/50 text-base leading-relaxed mb-8">
+            <p className="text-text-secondary text-base leading-relaxed mb-8">
               I'm always interested in hearing about new opportunities,
               collaborations, or just having a chat about technology and design.
               Feel free to reach out — I'll get back to you as soon as possible.
@@ -115,14 +124,14 @@ export default function Contact() {
                   href={social.href}
                   target={social.href.startsWith('mailto') ? '_self' : '_blank'}
                   rel="noopener noreferrer"
-                  className="group relative w-14 h-14 rounded-2xl glass flex items-center justify-center transition-all hover:border-white/40"
+                  className="group relative w-14 h-14 rounded-2xl glass flex items-center justify-center transition-all hover:border-blue-primary/40"
                   whileHover={{ scale: 1.1, y: -4 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={social.label}
                 >
-                  <social.icon className="w-6 h-6 text-white/60 group-hover:text-white transition-colors" />
+                  <social.icon className="w-6 h-6 text-text-secondary group-hover:text-blue-primary transition-colors" />
                   {/* Tooltip */}
-                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-blue-primary opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                     {social.label}
                   </span>
                 </motion.a>
@@ -141,7 +150,7 @@ export default function Contact() {
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               {/* Name */}
               <div className="space-y-2">
-                <label htmlFor="contact-name" className="text-sm font-medium text-white/60 uppercase tracking-wider block">Your Name</label>
+                <label htmlFor="contact-name" className="text-sm font-medium text-text-secondary uppercase tracking-wider block">Your Name</label>
                 <input
                   type="text"
                   name="name"
@@ -149,14 +158,14 @@ export default function Contact() {
                   value={formState.name}
                   onChange={handleChange}
                   required
-                  className="w-full bg-[#0a0f1d] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-white transition-colors"
+                  className="w-full bg-bg-secondary border border-glass-border rounded-xl p-4 text-text-primary focus:outline-none focus:border-blue-primary transition-colors"
                   aria-label="Your name"
                 />
               </div>
 
               {/* Email */}
               <div className="space-y-2">
-                <label htmlFor="contact-email" className="text-sm font-medium text-white/60 uppercase tracking-wider block">Your Email</label>
+                <label htmlFor="contact-email" className="text-sm font-medium text-text-secondary uppercase tracking-wider block">Your Email</label>
                 <input
                   type="email"
                   name="email"
@@ -164,14 +173,14 @@ export default function Contact() {
                   value={formState.email}
                   onChange={handleChange}
                   required
-                  className="w-full bg-[#0a0f1d] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-white transition-colors"
+                  className="w-full bg-bg-secondary border border-glass-border rounded-xl p-4 text-text-primary focus:outline-none focus:border-blue-primary transition-colors"
                   aria-label="Your email"
                 />
               </div>
 
               {/* Message */}
               <div className="space-y-2">
-                <label htmlFor="contact-message" className="text-sm font-medium text-white/60 uppercase tracking-wider block">Your Message</label>
+                <label htmlFor="contact-message" className="text-sm font-medium text-text-secondary uppercase tracking-wider block">Your Message</label>
                 <textarea
                   name="message"
                   id="contact-message"
@@ -179,7 +188,7 @@ export default function Contact() {
                   value={formState.message}
                   onChange={handleChange}
                   required
-                  className="w-full bg-[#0a0f1d] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-white transition-colors resize-none"
+                  className="w-full bg-bg-secondary border border-glass-border rounded-xl p-4 text-text-primary focus:outline-none focus:border-blue-primary transition-colors resize-none"
                   aria-label="Your message"
                 />
               </div>

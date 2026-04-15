@@ -57,7 +57,7 @@ export default function Navbar() {
             aria-label="Go to top"
           >
             <span
-              className="text-2xl font-bold tracking-tighter text-white"
+              className="text-2xl font-bold tracking-tighter text-text-primary"
               style={{ fontFamily: 'Clash Display, sans-serif' }}
             >
               John<span className="text-blue-primary">.</span>
@@ -72,7 +72,7 @@ export default function Navbar() {
                 onClick={() => scrollToSection(link.id)}
                 className="relative px-4 py-2 text-sm font-medium transition-colors rounded-lg"
                 style={{
-                  color: activeSection === link.id ? '#ffffff' : 'rgba(255,255,255,0.7)',
+                  color: activeSection === link.id ? 'var(--text-primary)' : 'var(--text-secondary)',
                 }}
                 aria-label={`Navigate to ${link.label}`}
               >
@@ -81,7 +81,7 @@ export default function Navbar() {
                   <motion.div
                     layoutId="activeNav"
                     className="absolute inset-0 rounded-lg"
-                    style={{ background: 'rgba(255, 255, 255, 0.1)' }}
+                    style={{ background: 'var(--selection-bg)' }}
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -97,15 +97,17 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl glass"
-            onClick={() => setMobileMenuOpen(true)}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Open menu"
-          >
-            <HiMenuAlt3 className="w-5 h-5" />
-          </motion.button>
+          <div className="flex items-center gap-3">
+            {/* Mobile Menu Button */}
+            <motion.button
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl glass"
+              onClick={() => setMobileMenuOpen(true)}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Open menu"
+            >
+              <HiMenuAlt3 className="w-5 h-5" />
+            </motion.button>
+          </div>
         </div>
       </motion.nav>
 
@@ -144,8 +146,8 @@ export default function Navbar() {
                     onClick={() => scrollToSection(link.id)}
                     className="text-left px-4 py-3 rounded-xl text-base font-medium transition-all"
                     style={{
-                      color: activeSection === link.id ? '#ffffff' : 'rgba(255,255,255,0.7)',
-                      background: activeSection === link.id ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                      color: activeSection === link.id ? 'var(--text-primary)' : 'var(--text-secondary)',
+                      background: activeSection === link.id ? 'var(--selection-bg)' : 'transparent',
                     }}
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -156,8 +158,8 @@ export default function Navbar() {
                   </motion.button>
                 ))}
               </nav>
-              <div className="mt-auto p-5">
-                <p className="text-xs text-white/30 text-center">© {new Date().getFullYear()} {personalInfo.name}</p>
+              <div className="mt-auto p-5 border-t border-glass-border">
+                <p className="text-xs text-text-secondary text-center">© {new Date().getFullYear()} {personalInfo.name}</p>
               </div>
             </motion.div>
           </>
