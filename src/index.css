@@ -437,8 +437,8 @@
 
 /* ─── Custom Styles ─── */
 .text-outline {
-  -webkit-text-stroke: 1px var(--text-outline-color);
-  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
 /* ─── Custom Cursor Visibility ─── */

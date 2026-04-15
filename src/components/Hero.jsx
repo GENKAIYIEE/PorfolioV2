@@ -47,7 +47,7 @@ export default function Hero() {
             className="text-4xl md:text-5xl lg:text-7xl font-bold text-text-primary mb-2"
             style={{ fontFamily: 'Clash Display, sans-serif' }}
           >
-            Hi, I'm <span className="text-outline">John</span>
+            Hi, I'm <span className="text-outline text-white">John</span>
           </motion.h2>
 
           <motion.h1
