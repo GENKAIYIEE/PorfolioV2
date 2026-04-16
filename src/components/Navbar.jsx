@@ -6,7 +6,7 @@ import { HiMenuAlt3, HiX } from 'react-icons/hi'
 
 export default function Navbar() {
   const progress = useScrollProgress()
-  const activeSection = useActiveSection(navLinks.map((l) => l.id))
+  const { activeSection, setOverride } = useActiveSection(navLinks.map((l) => l.id))
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -30,6 +30,7 @@ export default function Navbar() {
   }, [mobileMenuOpen])
 
   const scrollToSection = (id) => {
+    setOverride(id)
     const el = document.getElementById(id)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' })

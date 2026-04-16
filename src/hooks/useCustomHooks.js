@@ -30,17 +30,55 @@ export function useScrollProgress() {
 // ─── useActiveSection ───
 export function useActiveSection(sectionIds) {
   const [activeSection, setActiveSection] = useState('')
+  const lastClickRef = useRef(0)
+
+  // Explicit manual override used when clicking a navbar link
+  const setOverride = useCallback((id) => {
+    setActiveSection(id)
+    lastClickRef.current = Date.now()
+  }, [])
 
   useEffect(() => {
+    // Collect all visible sections to manage which one is currently the 'most' visible
+    const visibleSections = new Map()
+
     const observer = new IntersectionObserver(
       (entries) => {
+        // Ignore scroll spy updates for 1000ms after a navbar click to prevent erratic highlights
+        if (Date.now() - lastClickRef.current < 1000) return
+
+        let updated = false
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
+            visibleSections.set(entry.target.id, entry.intersectionRatio)
+            updated = true
+          } else {
+            visibleSections.delete(entry.target.id)
+            updated = true
           }
         })
+
+        if (updated && visibleSections.size > 0) {
+          // Find the section with the highest intersection ratio
+          let bestMatch = ''
+          let maxRatio = -1
+
+          visibleSections.forEach((ratio, id) => {
+            if (ratio > maxRatio) {
+              maxRatio = ratio
+              bestMatch = id
+            }
+          })
+
+          if (bestMatch) {
+            setActiveSection(bestMatch)
+          }
+        }
       },
-      { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' }
+      // Root margin accounts for fixed header (~80px) and bottom spacing.
+      // Threshold creates multiple trigger points to accurately measure the most visible section
+      // ensuring taller sections don't get completely ignored.
+      { rootMargin: '-80px 0px -20% 0px', threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
     )
 
     sectionIds.forEach((id) => {
@@ -51,7 +89,7 @@ export function useActiveSection(sectionIds) {
     return () => observer.disconnect()
   }, [sectionIds])
 
-  return activeSection
+  return { activeSection, setOverride }
 }
 
 // ─── useTypewriter ───
