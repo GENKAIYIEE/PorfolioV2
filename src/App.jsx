@@ -54,13 +54,13 @@ export default function App() {
                 <Education />
               </Suspense>
               <Suspense fallback={<SectionFallback />}>
+                <Achievements />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
                 <Projects />
               </Suspense>
               <Suspense fallback={<SectionFallback />}>
                 <WorkWithMe />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Achievements />
               </Suspense>
               <Suspense fallback={<SectionFallback />}>
                 <Contact />

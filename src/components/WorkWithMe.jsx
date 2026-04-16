@@ -229,41 +229,7 @@ export default function WorkWithMe() {
           ))}
         </motion.div>
 
-        {/* Bridge Component */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-20 text-center"
-        >
-          <div className="inline-flex flex-col items-center gap-4">
-            <p className="text-text-secondary text-sm md:text-base max-w-xl leading-relaxed italic">
-              "My commitment to excellence is backed by continuous learning and
-              industry-recognized credentials."
-            </p>
-            <motion.a
-              href="#achievements"
-              className="group inline-flex items-center gap-2 text-blue-primary text-xs font-semibold uppercase tracking-widest hover:gap-3 transition-all duration-300"
-              whileHover={{ y: 2 }}
-            >
-              <span>Scroll to view Certificates</span>
-              <svg
-                className="w-4 h-4 animate-bounce-down"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-            </motion.a>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   )
