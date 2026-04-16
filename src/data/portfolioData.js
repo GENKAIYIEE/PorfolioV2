@@ -10,7 +10,8 @@ import top10 from '../assets/top10.png';
 import prog from '../assets/prog.png';
 import kip from '../assets/kip.png';
 import ecash from '../assets/ecash.png';
-import lms from '../assets/lms.png';
+import lms from '../assets/LMS (2).png';
+import deans from '../assets/deans.jpg';
 
 
 export const personalInfo = {
@@ -197,7 +198,8 @@ export const achievements = [
     year: '2024 – Present',
     icon: '📜',
     description: 'Consistently maintained an academic average of 90 since 2024, earning recognition for unwavering dedication to academic excellence throughout the BSIT program.',
-    image: '/cert_placeholder.png',
+    image: deans,
+    label: 'View Honor',
     featured: true,
   },
   {
@@ -207,6 +209,7 @@ export const achievements = [
     icon: '💻',
     description: 'Awarded for exceptional proficiency in software development and algorithmic problem-solving, standing out among peers for clean, efficient, and innovative code.',
     image: prog,
+    label: 'View Certificate',
     featured: true,
   },
   {
@@ -216,6 +219,7 @@ export const achievements = [
     icon: '🎖️',
     description: 'Received top intern recognition for outstanding performance and technical contributions during the OJT program, directly impacting the agency\'s digital transformation initiatives.',
     image: intern,
+    label: 'View Certificate',
     featured: true,
   },
   {
@@ -225,6 +229,7 @@ export const achievements = [
     icon: '📜',
     description: 'Officially certified for successfully completing the rigorous On-the-Job Training program at the Department of Science and Technology Region 1, contributing to impactful web development and digital projects.',
     image: '/cert_placeholder.png',
+    label: 'View Certificate',
     featured: true,
   },
   {
@@ -234,6 +239,7 @@ export const achievements = [
     icon: '🚀',
     description: 'Developed and presented a capstone project lauded as the most innovative of the batch, introducing practical technology-driven solutions to real-world institutional challenges.',
     image: innovate,
+    label: 'View Certificate',
     featured: true,
   },
   {
@@ -243,6 +249,7 @@ export const achievements = [
     icon: '💡',
     description: 'Competed in an interschool startup competition, pitching an innovative business idea to industry judges and securing a Top 10 spot among competing colleges.',
     image: top10,
+    label: 'View Certificate',
     featured: false,
   },
 ]
@@ -323,7 +330,8 @@ export const navLinks = [
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
-  { id: 'achievements', label: 'Achievements' },
   { id: 'projects', label: 'Projects' },
+  { id: 'work-with-me', label: 'Work With Me' },
+  { id: 'achievements', label: 'Achievements' },
   { id: 'contact', label: 'Contact' },
 ]

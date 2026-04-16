@@ -12,6 +12,7 @@ const Experience = lazy(() => import('./components/Experience'))
 const Education = lazy(() => import('./components/Education'))
 const Achievements = lazy(() => import('./components/Achievements'))
 const Projects = lazy(() => import('./components/Projects'))
+const WorkWithMe = lazy(() => import('./components/WorkWithMe'))
 const Contact = lazy(() => import('./components/Contact'))
 
 function SectionFallback() {
@@ -53,10 +54,13 @@ export default function App() {
                 <Education />
               </Suspense>
               <Suspense fallback={<SectionFallback />}>
-                <Achievements />
+                <Projects />
               </Suspense>
               <Suspense fallback={<SectionFallback />}>
-                <Projects />
+                <WorkWithMe />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Achievements />
               </Suspense>
               <Suspense fallback={<SectionFallback />}>
                 <Contact />

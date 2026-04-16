@@ -136,7 +136,7 @@ export default function Achievements() {
             className="mt-16 text-center"
           >
             <p className="text-text-secondary/40 text-xs uppercase tracking-widest">
-              Click any card to view the certificate
+              Click any card for more details
             </p>
           </motion.div>
         </div>
@@ -175,7 +175,7 @@ export default function Achievements() {
                 ref={closeBtnRef}
                 className="absolute top-4 right-4 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-glass-bg hover:bg-glass-border transition-colors border border-glass-border ring-1 ring-white/10"
                 onClick={closeModal}
-                aria-label="Close certificate preview"
+                aria-label={`Close ${selected.title} preview`}
               >
                 <HiX className="w-5 h-5 text-text-primary" />
               </button>
@@ -187,14 +187,14 @@ export default function Achievements() {
                 {selected.image ? (
                   <img
                     src={selected.image}
-                    alt={`${selected.title} Certificate`}
+                    alt={selected.title}
                     className="w-full h-auto object-contain"
                     style={{ maxHeight: '65vh' }}
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center py-16 gap-3 text-text-secondary/20">
                     <HiTrophy className="w-14 h-14" />
-                    <span className="text-sm tracking-widest uppercase">Certificate Coming Soon</span>
+                    <span className="text-sm tracking-widest uppercase">Content Coming Soon</span>
                   </div>
                 )}
                 {/* Gradient overlay bottom */}
@@ -278,7 +278,7 @@ function FeaturedCard({ item, index, onOpen }) {
           {/* View CTA */}
           <div className="absolute inset-0 bg-blue-900/0 group-hover:bg-blue-900/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
             <span className="text-white text-xs font-semibold bg-blue-600/80 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-1.5">
-              <HiExternalLink className="w-3.5 h-3.5" /> View Certificate
+              <HiExternalLink className="w-3.5 h-3.5" /> {item.label || 'View Details'}
             </span>
           </div>
         </div>
@@ -298,9 +298,6 @@ function FeaturedCard({ item, index, onOpen }) {
           <p className="text-text-secondary text-xs leading-relaxed mt-1 line-clamp-3">{item.description}</p>
           <div className="mt-auto pt-3 border-t border-glass-border flex items-center justify-between">
             <span className="text-text-secondary/40 text-[10px] font-mono">{item.year}</span>
-            <span className="text-blue-primary/60 text-[10px] group-hover:text-blue-primary transition-colors">
-              Click to view →
-            </span>
           </div>
         </div>
       </div>
@@ -355,9 +352,6 @@ function SecondaryCard({ item, index, onOpen }) {
           <p className="text-text-secondary text-xs leading-relaxed mt-1 line-clamp-2">{item.description}</p>
           <div className="mt-auto pt-2 flex items-center justify-between">
             <span className="text-text-secondary/40 text-[9px] font-mono">{item.year}</span>
-            <span className="text-[9px] text-blue-primary/0 group-hover:text-blue-primary/60 transition-colors">
-              view →
-            </span>
           </div>
         </div>
       </div>
