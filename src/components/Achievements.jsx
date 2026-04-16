@@ -127,18 +127,7 @@ export default function Achievements() {
             ))}
           </motion.div>
 
-          {/* Cert Gallery CTA */}
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
-            <p className="text-text-secondary/40 text-xs uppercase tracking-widest">
-              Click any card for more details
-            </p>
-          </motion.div>
+
         </div>
       </section>
 
