@@ -205,7 +205,7 @@ export const achievements = [
   {
     title: 'Best in Programming',
     org: 'IT Department — PCLU',
-    year: '2024',
+    year: '2026',
     icon: '💻',
     description: 'Awarded for exceptional proficiency in software development and algorithmic problem-solving, standing out among peers for clean, efficient, and innovative code.',
     image: prog,
@@ -215,7 +215,7 @@ export const achievements = [
   {
     title: 'Excellence Awardee — IT Internship',
     org: 'DOST Region 1',
-    year: '2024',
+    year: '2026',
     icon: '🎖️',
     description: 'Received top intern recognition for outstanding performance and technical contributions during the OJT program, directly impacting the agency\'s digital transformation initiatives.',
     image: intern,
@@ -225,7 +225,7 @@ export const achievements = [
   {
     title: 'DOST Region 1 Certificate of Completion (OJT)',
     org: 'DOST Region 1',
-    year: '2024',
+    year: '2026',
     icon: '📜',
     description: 'Officially certified for successfully completing the rigorous On-the-Job Training program at the Department of Science and Technology Region 1, contributing to impactful web development and digital projects.',
     image: '/cert_placeholder.png',
@@ -235,7 +235,7 @@ export const achievements = [
   {
     title: 'Most Innovative Capstone Project',
     org: 'College of Information Technology — PCLU',
-    year: '2024',
+    year: '2026',
     icon: '🚀',
     description: 'Developed and presented a capstone project lauded as the most innovative of the batch, introducing practical technology-driven solutions to real-world institutional challenges.',
     image: innovate,
@@ -245,7 +245,7 @@ export const achievements = [
   {
     title: 'Top 10 Finalist — Interschool Startup Challenge',
     org: 'Representing PCLU',
-    year: '2024',
+    year: '2026',
     icon: '💡',
     description: 'Competed in an interschool startup competition, pitching an innovative business idea to industry judges and securing a Top 10 spot among competing colleges.',
     image: top10,
