@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { projects, projectCategories } from '../data/portfolioData'
+import { projects } from '../data/portfolioData'
 import { HiExternalLink } from 'react-icons/hi'
 import { FaGithub } from 'react-icons/fa'
 
@@ -14,13 +13,6 @@ const fadeInUp = {
 }
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState('All')
-
-  const filtered =
-    activeFilter === 'All'
-      ? projects
-      : projects.filter((p) => p.category === activeFilter)
-
   const featured = projects.find((p) => p.featured)
 
   return (
@@ -54,7 +46,7 @@ export default function Projects() {
                 {/* Content side - takes up more space for typography focus */}
                 <div className="md:col-span-3 p-10 md:p-14 flex flex-col justify-center border-b md:border-b-0 md:border-r border-glass-border">
                   <span className="text-xs font-medium text-text-secondary uppercase tracking-widest mb-4 block">
-                    Featured Output
+                    {featured.isUpcoming ? 'Coming Soon' : 'Featured Output'}
                   </span>
                   <h3
                     className="text-3xl md:text-5xl font-bold text-text-primary mb-6 tracking-tight group-hover:text-blue-primary transition-colors"
@@ -108,8 +100,21 @@ export default function Projects() {
                 <div className="md:col-span-2 relative h-64 md:h-auto overflow-hidden bg-bg-primary flex items-center justify-center">
                   <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPjwvc3ZnPg==')] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)] dark:opacity-20 opacity-40" />
                   <div className="text-center relative z-10 px-8">
-                    <div className="text-4xl text-blue-primary opacity-20 dark:opacity-30 mb-4 font-serif italic">01</div>
-                    <div className="text-text-secondary/40 uppercase tracking-[0.3em] text-xs font-mono">Project Overview</div>
+                    {featured.isUpcoming ? (
+                      <motion.div
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                        className="flex flex-col items-center"
+                      >
+                        <div className="w-16 h-16 rounded-full border-4 border-blue-primary/20 border-t-blue-primary animate-spin mb-6" />
+                        <div className="text-blue-primary tracking-[0.4em] uppercase text-sm font-semibold">In Progress</div>
+                      </motion.div>
+                    ) : (
+                      <>
+                        <div className="text-4xl text-blue-primary opacity-20 dark:opacity-30 mb-4 font-serif italic">01</div>
+                        <div className="text-text-secondary/40 uppercase tracking-[0.3em] text-xs font-mono">Project Overview</div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -117,38 +122,11 @@ export default function Projects() {
           </motion.div>
         )}
 
-        {/* Filter Bar */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="flex flex-wrap gap-4 mb-16"
-        >
-          {projectCategories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveFilter(cat)}
-              className="relative pb-2 text-sm font-medium transition-all group"
-              style={{
-                color: activeFilter === cat ? 'var(--text-primary)' : 'var(--text-secondary)',
-              }}
-              aria-label={`Filter projects by ${cat}`}
-            >
-              <span className="relative z-10 uppercase tracking-widest">{cat}</span>
-              <div 
-                className={`absolute bottom-0 left-0 h-[2px] transition-all duration-300 bg-blue-primary
-                  ${activeFilter === cat ? 'w-full' : 'w-0 group-hover:w-1/2'}`}
-              />
-            </button>
-          ))}
-        </motion.div>
-
         {/* Project Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence mode="popLayout">
-            {filtered
-              .filter((p) => !p.featured || activeFilter !== 'All')
+            {projects
+              .filter((p) => !p.featured)
               .map((project) => (
                 <motion.div
                   key={project.title}

@@ -254,74 +254,20 @@ export const achievements = [
   },
 ]
 
-export const projectCategories = ['All', 'Web', 'Mobile', 'Data', 'DevOps']
+
 
 export const projects = [
   {
-    title: 'Nexus Analytics Platform',
+    title: 'Upcoming Project',
     description:
-      'A real-time business intelligence dashboard with interactive charts, custom report builders, and role-based access control. Handles 10M+ data points with sub-second query performance.',
+      'Waiting for another project... currently exploring new horizons and putting together something amazing.',
     image: null,
-    tech: ['React', 'D3.js', 'Node.js', 'PostgreSQL', 'Redis'],
-    github: 'https://github.com/johnjoaquin/nexus-analytics',
-    demo: 'https://nexus-analytics.demo.dev',
-    category: 'Web',
+    tech: ['Research', 'Idea Generation', 'Planning'],
+    github: null,
+    demo: null,
+    category: 'TBD',
     featured: true,
-  },
-  {
-    title: 'CloudDeploy CLI',
-    description:
-      'An open-source command-line tool for automating multi-cloud deployments. Supports AWS, GCP, and Azure with infrastructure-as-code templates.',
-    image: null,
-    tech: ['Go', 'Terraform', 'Docker', 'AWS', 'GCP'],
-    github: 'https://github.com/johnjoaquin/clouddeploy',
-    demo: null,
-    category: 'DevOps',
-    featured: false,
-  },
-  {
-    title: 'FitTrack Mobile',
-    description:
-      'A cross-platform fitness tracking app with workout logging, progress photos, and AI-powered meal planning. 4.8★ rating on both app stores.',
-    image: null,
-    tech: ['React Native', 'Firebase', 'TensorFlow Lite', 'Stripe'],
-    github: 'https://github.com/johnjoaquin/fittrack',
-    demo: 'https://fittrack.app',
-    category: 'Mobile',
-    featured: false,
-  },
-  {
-    title: 'DataPulse ETL Engine',
-    description:
-      'A scalable ETL pipeline framework for processing terabytes of streaming data with fault tolerance and exactly-once delivery guarantees.',
-    image: null,
-    tech: ['Python', 'Apache Kafka', 'Spark', 'Airflow'],
-    github: 'https://github.com/johnjoaquin/datapulse',
-    demo: null,
-    category: 'Data',
-    featured: false,
-  },
-  {
-    title: 'DevConnect Social',
-    description:
-      'A developer-focused social platform with real-time code collaboration, project showcases, and mentorship matching. Built for the dev community.',
-    image: null,
-    tech: ['Next.js', 'Prisma', 'WebSocket', 'Tailwind CSS'],
-    github: 'https://github.com/johnjoaquin/devconnect',
-    demo: 'https://devconnect.demo.dev',
-    category: 'Web',
-    featured: false,
-  },
-  {
-    title: 'SentimentScope',
-    description:
-      'A natural language processing tool that analyzes customer feedback at scale, providing actionable insights through sentiment scoring and topic clustering.',
-    image: null,
-    tech: ['Python', 'spaCy', 'FastAPI', 'React', 'MongoDB'],
-    github: 'https://github.com/johnjoaquin/sentimentscope',
-    demo: 'https://sentimentscope.demo.dev',
-    category: 'Data',
-    featured: false,
+    isUpcoming: true,
   },
 ]
 
@@ -330,8 +276,8 @@ export const navLinks = [
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
+  { id: 'achievements', label: 'Achievements' },
   { id: 'projects', label: 'Projects' },
   { id: 'work-with-me', label: 'Work With Me' },
-  { id: 'achievements', label: 'Achievements' },
   { id: 'contact', label: 'Contact' },
 ]
