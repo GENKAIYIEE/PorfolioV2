@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { HiLightningBolt, HiShieldCheck } from 'react-icons/hi'
+import { HiLightningBolt, HiShieldCheck, HiArrowNarrowRight } from 'react-icons/hi'
 import { HiSquaresPlus } from 'react-icons/hi2'
 import { BsLayers } from 'react-icons/bs'
 
@@ -31,33 +31,33 @@ const cardHover = {
 const pillars = [
   {
     icon: HiLightningBolt,
-    title: 'Peak Productivity',
-    subtitle: 'Optimized Development Cycles',
+    title: 'Proactive Innovation',
+    subtitle: 'Driving Progress with Passion',
     description:
-      'Fast-paced development without sacrificing code quality. Every sprint is engineered for maximum output — clean architecture, rapid iteration, and zero technical debt accumulation.',
-    highlights: ['Rapid Prototyping', 'Clean Architecture', 'Efficient Debugging'],
+      'I bring infectious energy and a forward-thinking approach to every project. I thrive on rapid iteration and creative problem-solving, ensuring your application stays ahead of the curve.',
+    highlights: ['Solution-Oriented', 'Rapid Innovation', 'Creative Precision'],
     accentColor: '#f59e0b',
     accentGlow: 'rgba(245, 158, 11, 0.15)',
     accentBorder: 'rgba(245, 158, 11, 0.3)',
   },
   {
-    icon: BsLayers,
-    title: 'Strategic Plan Management',
-    subtitle: 'Systematic Project Architecture',
+    icon: HiShieldCheck,
+    title: 'Reliable Strategic Partnership',
+    subtitle: 'Dependability You Can Build On',
     description:
-      'Meticulous version control and systematic project tracking at every phase. From backlog grooming to deployment pipelines — nothing ships without a structured plan.',
-    highlights: ['Meticulous Documentation & Versioning', 'Structured Workflows', 'Milestone Tracking'],
+      'Trust is the foundation of any project. I provide transparent communication and meticulous version control, ensuring a smooth, predictable, and high-quality development journey.',
+    highlights: ['Open Communication', 'Meticulous Accountability', 'Structured Success'],
     accentColor: '#2563eb',
     accentGlow: 'rgba(37, 99, 235, 0.15)',
     accentBorder: 'rgba(37, 99, 235, 0.3)',
   },
   {
     icon: HiSquaresPlus,
-    title: 'Full-Stack Agility',
-    subtitle: 'End-to-End System Mastery',
+    title: 'Versatile & Impactful Solutions',
+    subtitle: 'Holistic Technical Excellence',
     description:
-      'Seamlessly bridging the gap between database logic and user interface. From SQL schemas to pixel-perfect frontends — the entire stack is my domain.',
-    highlights: ['Database Architecture', 'API Design', 'UI/UX Implementation'],
+      'My versatility across the entire stack allows me to bridge the gap between complex logic and elegant user experiences. I focus on building systems that deliver real-world value.',
+    highlights: ['User-Centric Growth', 'Seamless Integration', 'Agile Learning'],
     accentColor: '#10b981',
     accentGlow: 'rgba(16, 185, 129, 0.15)',
     accentBorder: 'rgba(16, 185, 129, 0.3)',
@@ -102,8 +102,8 @@ export default function WorkWithMe() {
             Why Work With Me?
           </h2>
           <p className="text-text-secondary max-w-2xl text-sm md:text-base leading-relaxed">
-            I bring a relentless commitment to quality, speed, and strategic execution.
-            Here's what defines my professional approach.
+            I combine technical mastery with a <span className="text-text-primary font-medium">positive, solution-oriented mindset</span>.
+            I'm not just a developer; I'm a <span className="text-blue-primary font-medium">dedicated partner</span> committed to turning your vision into a high-impact reality.
           </p>
         </motion.div>
 
@@ -227,6 +227,38 @@ export default function WorkWithMe() {
               </motion.div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Call to Action */}
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-20 flex flex-col items-center text-center"
+        >
+          <div className="p-[1px] rounded-full bg-gradient-to-r from-transparent via-blue-primary/50 to-transparent w-full max-w-lg mb-12 opacity-30" />
+          
+          <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-6" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+            Ready to build something amazing together?
+          </h3>
+          
+          <motion.a
+            href="#contact"
+            className="group relative px-8 py-4 bg-blue-primary text-white font-bold rounded-full overflow-hidden flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,99,235,0.4)]"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="relative z-10 text-sm md:text-base uppercase tracking-wider">Let's Collaborate</span>
+            <HiArrowNarrowRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
+            
+            {/* Gloss effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+          </motion.a>
+          
+          <p className="mt-8 text-text-secondary/60 text-xs italic">
+            "Driven by curiosity, fueled by challenge, and committed to your vision."
+          </p>
         </motion.div>
 
 
