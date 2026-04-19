@@ -240,21 +240,10 @@ export default function WorkWithMe() {
           <div className="p-[1px] rounded-full bg-gradient-to-r from-transparent via-blue-primary/50 to-transparent w-full max-w-lg mb-12 opacity-30" />
           
           <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-6" style={{ fontFamily: 'Clash Display, sans-serif' }}>
-            Ready to build something amazing together?
+            Let's Turn Ideas into Reality!
           </h3>
           
-          <motion.a
-            href="#contact"
-            className="group relative px-8 py-4 bg-blue-primary text-white font-bold rounded-full overflow-hidden flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,99,235,0.4)]"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="relative z-10 text-sm md:text-base uppercase tracking-wider">Let's Collaborate</span>
-            <HiArrowNarrowRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
-            
-            {/* Gloss effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-          </motion.a>
+
           
           <p className="mt-8 text-text-secondary/60 text-xs italic">
             "Driven by curiosity, fueled by challenge, and committed to your vision."
