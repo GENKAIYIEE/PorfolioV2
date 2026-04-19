@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import LoadingScreen from './components/LoadingScreen'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Footer from './components/Footer'
 import AutoScroll from './components/AutoScroll'
 
 // Lazy load below-the-fold sections for performance
@@ -66,7 +65,6 @@ export default function App() {
                 <Contact />
               </Suspense>
             </main>
-            <Footer />
             <AutoScroll />
           </motion.div>
         )}

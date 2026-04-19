@@ -77,7 +77,7 @@ export const experiences = [
     bullets: [
       'Engineered the KIP Record Management System to digitize and streamline administrative operations for the regional office.',
       'Implemented an intuitive interface and secure data structure for efficient document tracking and storage.',
-      'Awarded "Best IT Intern" for outstanding performance and technical contribution to the regional digital transformation projects.',
+       
     ],
   },
   {
