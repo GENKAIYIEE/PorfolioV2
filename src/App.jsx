@@ -4,6 +4,7 @@ import LoadingScreen from './components/LoadingScreen'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import AutoScroll from './components/AutoScroll'
+import CustomCursor from './components/CustomCursor'
 
 // Lazy load below-the-fold sections for performance
 const About = lazy(() => import('./components/About'))
@@ -14,6 +15,7 @@ const Projects = lazy(() => import('./components/Projects'))
 const Seminars = lazy(() => import('./components/Seminars'))
 const WorkWithMe = lazy(() => import('./components/WorkWithMe'))
 const Contact = lazy(() => import('./components/Contact'))
+const Footer = lazy(() => import('./components/Footer'))
 
 function SectionFallback() {
   return (
@@ -32,6 +34,7 @@ export default function App() {
 
   return (
     <>
+      <CustomCursor />
       <LoadingScreen onComplete={handleLoadingComplete} />
 
       <AnimatePresence>
@@ -69,6 +72,9 @@ export default function App() {
                 <Contact />
               </Suspense>
             </main>
+            <Suspense fallback={<SectionFallback />}>
+              <Footer />
+            </Suspense>
             <AutoScroll />
           </motion.div>
         )}
