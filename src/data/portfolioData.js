@@ -28,7 +28,7 @@ export const personalInfo = {
   },
 }
 
-export const roles = ['Full-Stack Developer', 'UI/UX Designer', 'Problem Solver', 'Tech Enthusiast']
+export const roles = ['Full-Stack Developer', 'Plan Management', 'Problem Solver', 'Version Control']
 
 export const stats = [
   { label: 'Motivated', value: 100 },
@@ -77,7 +77,7 @@ export const experiences = [
     bullets: [
       'Engineered the KIP Record Management System to digitize and streamline administrative operations for the regional office.',
       'Implemented an intuitive interface and secure data structure for efficient document tracking and storage.',
-       
+
     ],
   },
   {
@@ -277,7 +277,44 @@ export const navLinks = [
   { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
   { id: 'achievements', label: 'Achievements' },
+  { id: 'seminars', label: 'Seminars' },
   { id: 'projects', label: 'Projects' },
   { id: 'work-with-me', label: 'Work With Me' },
   { id: 'contact', label: 'Contact' },
 ]
+
+export const seminarsData = [
+  {
+    id: 'seminar-ai',
+    title: 'From Concept to Code: Research and Artificial Intelligence in IT',
+    description: 'Exploring the integration of AI tools and methodologies into modern software engineering practices.',
+    year: '2025',
+    emoji: '🤖',
+    featured: true,
+  },
+  {
+    id: 'seminar-smart',
+    title: 'Smart and Sustainable Communities Summit',
+    description: 'Theme: “Innovating Together Toward Smart, Sustainable, and Inclusive Communities.”',
+    year: '2025',
+    emoji: '🌍',
+    featured: true,
+  },
+  {
+    id: 'seminar-picspro',
+    title: 'Cybersecurity Conference and Chapter Installation',
+    org: 'Philippine Institute of Cybersecurity Professionals (PICSPro)',
+    description: 'Focused on current trends, threats, and standard best practices in the dynamic field of cybersecurity.',
+    year: '2024',
+    emoji: '🛡️',
+    featured: false,
+  },
+  {
+    id: 'seminar-spectrum',
+    title: 'Spectrum in IT Competencies for Today’s Digital Landscape',
+    description: 'A comprehensive look into the diverse IT skills required to navigate and succeed in today’s rapidly evolving digital space.',
+    year: '2024',
+    emoji: '💻',
+    featured: false,
+  }
+];
