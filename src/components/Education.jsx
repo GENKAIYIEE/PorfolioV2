@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useSpring, useTransform } from 'framer-motion'
 import {
   HiAcademicCap,
   HiLocationMarker,
@@ -60,12 +60,12 @@ function EducationCard({ item, index }) {
 
   return (
     <div ref={ref} className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-0">
-      {/* LEFT CELL – desktop only, shows card on even indices */}
+      {/* LEFT CELL – desktop only */}
       <div className="hidden md:flex justify-end pr-8">
         {isEven && (
           <motion.div
             className="w-full max-w-sm"
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -74,9 +74,8 @@ function EducationCard({ item, index }) {
         )}
       </div>
 
-      {/* CENTER – dot + vertical connector */}
+      {/* CENTER – glowing dot */}
       <div className="relative flex flex-col items-center">
-        {/* glowing dot */}
         <motion.div
           className="relative z-10 mt-6 w-5 h-5 rounded-full flex items-center justify-center"
           style={{
@@ -91,23 +90,23 @@ function EducationCard({ item, index }) {
         </motion.div>
       </div>
 
-      {/* RIGHT CELL – desktop shows card on odd indices; mobile ALWAYS shows */}
+      {/* RIGHT CELL */}
       <div className="pl-8 md:pl-8">
         {/* Mobile: always render */}
         <div className="md:hidden">
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <Card item={item} colors={colors} />
           </motion.div>
         </div>
-        {/* Desktop: only odd indices */}
+        {/* Desktop: odd only */}
         {!isEven && (
           <motion.div
             className="hidden md:block max-w-sm"
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -124,7 +123,7 @@ function Card({ item, colors }) {
 
   return (
     <div
-      className="relative rounded-2xl p-6 transition-all duration-300 group cursor-default"
+      className="card-hover-lift relative rounded-3xl p-6 group cursor-default"
       style={{
         background: `linear-gradient(145deg, var(--bg-secondary) 0%, ${colors.glow} 100%)`,
         border: `${isCollege ? '2px' : '1px'} solid ${colors.border}`,
@@ -132,28 +131,36 @@ function Card({ item, colors }) {
           ? `0 0 50px ${colors.glow}, 0 20px 60px rgba(0,0,0,0.1)`
           : `0 0 24px ${colors.glow}, 0 4px 20px rgba(0,0,0,0.05)`,
       }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = `0 15px 40px ${colors.glow}, 0 4px 20px rgba(0,0,0,0.1)`
+        e.currentTarget.style.borderColor = colors.border
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = isCollege
+          ? `0 0 50px ${colors.glow}, 0 20px 60px rgba(0,0,0,0.1)`
+          : `0 0 24px ${colors.glow}, 0 4px 20px rgba(0,0,0,0.05)`
+      }}
     >
-      {/* "Just Graduated" badge */}
       {isCollege && item.graduationDate && (
         <div className="absolute -top-3.5 left-5">
-          <span className="px-3 py-1 text-[11px] font-bold rounded-full bg-blue-500 text-white tracking-widest uppercase shadow-lg shadow-blue-500/40">
+          <span className="px-3 py-1 text-[11px] font-bold rounded-full bg-blue-500 text-white tracking-widest uppercase shadow-lg shadow-blue-500/40 border border-blue-400">
             🎉 Just Graduated!
           </span>
         </div>
       )}
 
       {/* Header row */}
-      <div className="flex items-start justify-between gap-3 mb-3">
+      <div className="flex items-start justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 min-w-0">
           <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0"
+            className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300"
             style={{ background: colors.glow, border: `1px solid ${colors.border}` }}
           >
             {item.emoji}
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 flex flex-col justify-center">
             <span
-              className={`inline-flex items-center px-2 py-0.5 text-[10px] font-semibold rounded-full border tracking-wide mb-1 ${colors.badge}`}
+              className={`w-max inline-flex items-center px-2 py-0.5 text-[10px] font-semibold rounded-full border tracking-wide mb-1.5 ${colors.badge}`}
             >
               {item.level}
             </span>
@@ -166,57 +173,50 @@ function Card({ item, colors }) {
           </div>
         </div>
         {item.link && (
-          <a
+          <motion.a
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded-lg hover:bg-glass-border transition-colors text-text-secondary hover:text-text-primary shrink-0"
+            className="p-2 rounded-xl hover:bg-glass-border transition-colors text-text-secondary hover:text-blue-primary shrink-0"
             aria-label={`Visit ${item.school} website`}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             <HiExternalLink className="w-4 h-4" />
-          </a>
+          </motion.a>
         )}
       </div>
 
-      {/* Degree */}
-      <p className="flex items-center gap-2 text-sm text-text-primary/70 mb-3 font-medium">
-        <HiAcademicCap className="w-3.5 h-3.5 text-blue-primary/50 shrink-0" />
+      <p className="flex items-center gap-2 text-sm text-text-primary/70 mb-4 font-medium">
+        <HiAcademicCap className="w-4 h-4 text-blue-primary/60 shrink-0" />
         {item.degree}
       </p>
 
-      {/* Meta row */}
-      <div className="flex flex-wrap gap-x-4 gap-y-1 mb-4">
-        <span className="flex items-center gap-1.5 text-[11px] text-text-secondary/60">
-          <HiCalendar className="w-3 h-3" />
+      <div className="flex flex-wrap gap-x-4 gap-y-2 mb-5">
+        <span className="flex items-center gap-1.5 text-xs text-text-secondary/70 font-mono">
+          <HiCalendar className="w-3.5 h-3.5 text-text-secondary/50" />
           {item.period}
         </span>
-        <span className="flex items-center gap-1.5 text-[11px] text-text-secondary/60">
-          <HiLocationMarker className="w-3 h-3" />
+        <span className="flex items-center gap-1.5 text-xs text-text-secondary/70">
+          <HiLocationMarker className="w-3.5 h-3.5 text-text-secondary/50" />
           {item.location}
         </span>
       </div>
 
-      {/* Separator */}
       <div
-        className="w-full h-px mb-4"
+        className="w-full h-px mb-4 opacity-50"
         style={{ background: `linear-gradient(90deg, ${colors.border}, transparent)` }}
       />
 
-      {/* Highlights */}
-      <ul className="space-y-2">
+      <ul className="space-y-2.5">
         {item.highlights.map((h, i) => {
-          const isAward =
-            h.toLowerCase().includes('dean') ||
-            h.toLowerCase().includes('award') ||
-            h.toLowerCase().includes('finalist') ||
-            h.toLowerCase().includes('best') ||
-            h.toLowerCase().includes('innovative')
+          const isAward = h.toLowerCase().includes('dean') || h.toLowerCase().includes('award') || h.toLowerCase().includes('finalist')
           return (
             <li key={i} className="flex items-start gap-2 text-sm leading-relaxed">
               {isAward ? (
-                <HiStar className="w-3 h-3 text-yellow-500 mt-1 shrink-0" />
+                <HiStar className="w-4 h-4 text-yellow-500 mt-0.5 shrink-0" />
               ) : (
-                <HiCheckCircle className="w-3 h-3 mt-1 shrink-0" style={{ color: colors.dot }} />
+                <HiCheckCircle className="w-4 h-4 mt-0.5 shrink-0" style={{ color: colors.dot }} />
               )}
               <span className={isAward ? 'text-text-primary/95 font-semibold' : 'text-text-secondary'}>
                 {h}
@@ -230,12 +230,19 @@ function Card({ item, colors }) {
 }
 
 export default function Education() {
+  const containerRef = useRef(null)
+  const lineRef = useRef(null)
+  const isLineInView = useInView(containerRef, { margin: "-20% 0px -20% 0px", once: false })
+
+  // Scroll linked bead
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start center", "end center"] })
+  const y = useSpring(useTransform(scrollYProgress, [0, 1], ["0%", "100%"]), { stiffness: 100, damping: 20 })
+
   return (
     <section
       id="education"
-      className="relative py-20 md:py-28 overflow-hidden border-t border-glass-border"
+      className="relative py-16 md:py-20 overflow-hidden border-t border-glass-border"
     >
-      {/* Ambient blobs */}
       <div
         className="pointer-events-none absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.06] blur-[140px]"
         style={{ background: 'radial-gradient(circle, #2563eb 0%, transparent 70%)' }}
@@ -245,9 +252,9 @@ export default function Education() {
         style={{ background: 'radial-gradient(circle, #8b5cf6 0%, transparent 70%)' }}
       />
 
-      <div className="relative max-w-5xl mx-auto px-6">
+      <div className="relative max-w-5xl mx-auto px-6" ref={containerRef}>
 
-        {/* ── Section Header ── */}
+        {/* Header */}
         <motion.div
           variants={fadeInUp}
           initial="hidden"
@@ -255,39 +262,32 @@ export default function Education() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-text-secondary/60 text-xs font-semibold uppercase tracking-[0.35em] mb-4 block">
-            Academic Journey
-          </span>
-          <h2
-            className="section-title inline-block"
-            style={{ fontFamily: 'Clash Display, sans-serif' }}
-          >
+          <h2 className="section-title mt-3" style={{ fontFamily: 'Clash Display, sans-serif' }}>
             Education
           </h2>
-          <p className="text-text-secondary text-base max-w-lg mx-auto mt-7 leading-relaxed">
-            From my first classroom in Laoag City to my IT diploma at PCLU — every school
+          <p className="text-text-secondary text-base max-w-lg mx-auto mt-5 leading-relaxed">
+            From my first classroom in Laoag City to my IT diploma at PCLU — every institution
             shaped the developer I am today.
           </p>
         </motion.div>
 
-        {/* ── Timeline ── */}
+        {/* Timeline */}
         <div className="relative">
-
-          {/* The vertical line — absolutely positioned behind the cards */}
+          {/* Animated vertical fill line */}
           <div
-            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(180deg, transparent 0%, #2563eb 10%, #8b5cf6 50%, #f59e0b 90%, transparent 100%)',
-            }}
+            ref={lineRef}
+            className={`timeline-fill hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 pointer-events-none ${isLineInView ? 'in-view' : ''}`}
+            style={{ background: 'linear-gradient(180deg, transparent 0%, #2563eb 10%, #8b5cf6 50%, #f59e0b 90%, transparent 100%)' }}
           />
-          {/* Mobile vertical line */}
           <div
-            className="md:hidden absolute left-2.5 top-0 bottom-0 w-px pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(180deg, transparent 0%, #2563eb 10%, #8b5cf6 50%, #f59e0b 90%, transparent 100%)',
-            }}
+            className={`timeline-fill md:hidden absolute left-[19px] top-0 bottom-0 w-[2px] pointer-events-none ${isLineInView ? 'in-view' : ''}`}
+            style={{ background: 'linear-gradient(180deg, transparent 0%, #2563eb 10%, #8b5cf6 50%, #f59e0b 90%, transparent 100%)' }}
+          />
+
+          {/* Tracking bead */}
+          <motion.div
+            className="hidden md:block absolute left-1/2 w-2 h-8 -translate-x-1/2 rounded-full pointer-events-none blur-[2px]"
+            style={{ top: y, background: 'linear-gradient(180deg, transparent, #60a5fa, transparent)', boxShadow: '0 0 10px #60a5fa' }}
           />
 
           <div className="space-y-10 md:space-y-14">
@@ -297,30 +297,32 @@ export default function Education() {
           </div>
         </div>
 
-        {/* ── Graduation CTA ── */}
+        {/* Graduation CTA */}
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-20 relative overflow-hidden rounded-3xl p-8 md:p-12 text-center"
+          className="mt-20 relative overflow-hidden rounded-3xl p-8 md:p-12 text-center grad-sparkle card-hover-lift"
           style={{
-            background:
-              'linear-gradient(135deg, rgba(37,99,235,0.1) 0%, rgba(139,92,246,0.05) 60%, var(--bg-secondary) 100%)',
+            background: 'linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(139,92,246,0.04) 60%, var(--bg-secondary) 100%)',
             border: '1px solid var(--edu-college-border)',
             boxShadow: '0 0 80px rgba(37,99,235,0.05)',
           }}
         >
-          {/* top shimmer */}
           <div
             className="absolute top-0 left-0 right-0 h-px"
-            style={{
-              background:
-                'linear-gradient(90deg, transparent 0%, #2563eb 30%, #8b5cf6 70%, transparent 100%)',
-            }}
+            style={{ background: 'linear-gradient(90deg, transparent 0%, #2563eb 30%, #8b5cf6 70%, transparent 100%)' }}
           />
 
-          <div className="text-5xl mb-4 select-none" aria-hidden>🎓</div>
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="text-5xl mb-5 select-none inline-block drop-shadow-xl"
+            aria-hidden
+          >
+            🎓
+          </motion.div>
           <h3
             className="text-2xl md:text-3xl font-bold text-text-primary mb-3"
             style={{ fontFamily: 'Clash Display, sans-serif' }}
@@ -329,24 +331,24 @@ export default function Education() {
           </h3>
           <p className="text-text-secondary text-sm md:text-base mb-8 max-w-md mx-auto leading-relaxed">
             Proudly completed my{' '}
-            <span className="text-text-primary font-semibold">
-              Bachelor of Science in Information Technology
-            </span>{' '}
+            <span className="text-text-primary font-semibold">Bachelor of Science in Information Technology</span>{' '}
             from{' '}
             <span className="text-blue-primary font-semibold">Polytechnic College of La Union</span>,
             graduating on{' '}
             <span className="text-text-primary font-semibold">April&nbsp;10,&nbsp;2026</span>.
           </p>
-          <a
+          <motion.a
             href="https://pclu.edu.ph/"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary inline-flex"
+            className="btn-primary inline-flex gap-2 group border border-blue-500/30 shadow-[0_0_20px_rgba(37,99,235,0.2)]"
             aria-label="Visit PCLU website"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             <span>Visit PCLU</span>
-            <HiExternalLink className="w-4 h-4" />
-          </a>
+            <HiExternalLink className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+          </motion.a>
         </motion.div>
       </div>
     </section>

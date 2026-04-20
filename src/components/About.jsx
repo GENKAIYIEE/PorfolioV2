@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import CountUpModule from 'react-countup'
 const CountUp = CountUpModule.default || CountUpModule
@@ -15,11 +15,57 @@ const fadeInUp = {
   }),
 }
 
+// Skill brand colors for glow on hover
+const SKILL_COLORS = {
+  JavaScript: '#f7df1e',
+  PHP: '#8892be',
+  'HTML/CSS': '#e34c26',
+  React: '#61dafb',
+  'Next.js': '#ffffff',
+  Express: '#68a063',
+  Laravel: '#ff2d20',
+  'Tailwind CSS': '#38bdf8',
+  Git: '#f05032',
+  GitHub: '#ffffff',
+  Vercel: '#ffffff',
+  Docker: '#2496ed',
+}
+
+function SkillBadgeAnimated({ skill }) {
+  const Icon = skill.icon
+  const color = SKILL_COLORS[skill.name] || 'var(--accent-primary)'
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <motion.span
+      className="skill-badge flex items-center gap-2"
+      style={hovered ? { borderColor: color, color, boxShadow: `0 0 12px ${color}22` } : {}}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      whileHover={{ scale: 1.06, y: -3 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+    >
+      {Icon && (
+        <Icon
+          className="text-lg transition-colors"
+          style={{ color: hovered ? color : 'currentColor' }}
+        />
+      )}
+      <span>{skill.name}</span>
+    </motion.span>
+  )
+}
+
 export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 })
   const [isModalOpen, setIsModalOpen] = useState(false)
   const prevFocusRef = useRef(null)
   const closeBtnRef = useRef(null)
+
+  // Background Parallax
+  const { scrollYProgress } = useScroll()
+  const yParallaxFast = useTransform(scrollYProgress, [0, 1], [0, -200])
+  const yParallaxSlow = useTransform(scrollYProgress, [0, 1], [0, 150])
 
   const closeMilestones = () => {
     if (window.history.state?.milestonesModal) {
@@ -29,7 +75,6 @@ export default function About() {
     }
   }
 
-  // Pause auto-scroll while the milestones modal is open
   useEffect(() => {
     if (isModalOpen) {
       window.dispatchEvent(new Event('pauseAutoScroll'))
@@ -38,7 +83,6 @@ export default function About() {
     }
   }, [isModalOpen])
 
-  // Close modal with Escape key for better accessibility
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') setIsModalOpen(false)
@@ -47,45 +91,31 @@ export default function About() {
     return () => window.removeEventListener('keydown', onKey)
   }, [isModalOpen])
 
-  // Push history state when milestones modal opens so back button closes it, and manage focus
   useEffect(() => {
     if (!isModalOpen) return
-
     prevFocusRef.current = document.activeElement
-
     try {
       window.history.pushState({ milestonesModal: true }, '', window.location.href)
-    } catch (e) {
-      // ignore (some environments may restrict pushState)
-    }
-
-    // focus close button after render
+    } catch (e) {}
     setTimeout(() => closeBtnRef.current?.focus(), 0)
-
     const handlePopState = (event) => {
-      if (!event.state?.milestonesModal) {
-        setIsModalOpen(false)
-      }
+      if (!event.state?.milestonesModal) setIsModalOpen(false)
     }
-
     window.addEventListener('popstate', handlePopState)
-
     return () => {
       window.removeEventListener('popstate', handlePopState)
-      try {
-        prevFocusRef.current?.focus?.()
-      } catch (e) {}
+      try { prevFocusRef.current?.focus?.() } catch (e) {}
     }
   }, [isModalOpen])
 
   return (
     <section id="about" className="relative py-16 md:py-20 overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none dark:opacity-100 opacity-40" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-secondary/5 rounded-full blur-[80px] pointer-events-none dark:opacity-100 opacity-20" />
+      {/* Background accents Parallax */}
+      <motion.div style={{ y: yParallaxFast }} className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none dark:opacity-100 opacity-40 z-0" />
+      <motion.div style={{ y: yParallaxSlow }} className="absolute bottom-0 left-0 w-64 h-64 bg-accent-secondary/5 rounded-full blur-[80px] pointer-events-none dark:opacity-100 opacity-20 z-0" />
 
       <div className="max-w-7xl mx-auto px-6" ref={ref}>
-        {/* Section Label */}
+        {/* Section Label — upgraded badge */}
         <motion.div
           variants={fadeInUp}
           initial="hidden"
@@ -93,10 +123,7 @@ export default function About() {
           viewport={{ once: true }}
           className="mb-6"
         >
-          <span className="text-text-secondary text-sm font-medium uppercase tracking-widest mb-3 block">
-            Get To Know Me
-          </span>
-          <h2 className="section-title">About Me</h2>
+          <h2 className="section-title mt-3">About Me</h2>
         </motion.div>
 
         {/* Content Layout */}
@@ -110,28 +137,34 @@ export default function About() {
             className="mb-12"
           >
             <p className="text-text-primary/90 text-lg md:text-xl font-medium leading-relaxed mb-6">
-              I bridge the gap between innovative ideas and seamless reality. With hands-on experience in both software architecture and hardware engineering, my focus is always on delivering complete solutions that provide tangible value.
+              I bridge the gap between innovative ideas and seamless reality. With hands-on experience in both
+              software architecture and hardware engineering, my focus is always on delivering complete solutions
+              that provide tangible value.
             </p>
-              <div className="flex flex-wrap gap-4">
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="btn-primary px-8 py-3 rounded-full font-semibold relative overflow-hidden group border border-white/30 hover:border-white text-white"
-                >
-                  <span className="relative z-10">View My Milestones</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </button>
-                <a
-                  href={personalInfo.resumeUrl}
-                  download="John_Vincent_Joaquin_Resume.png"
-                  className="btn-outline px-8 py-3 rounded-full font-semibold flex items-center gap-2 border border-white/30 hover:bg-white/10 text-white transition-colors"
-                >
-                  <HiDownload className="w-5 h-5" />
-                  <span>Download Resume</span>
-                </a>
-              </div>
+            <div className="flex flex-wrap gap-4">
+              <motion.button
+                onClick={() => setIsModalOpen(true)}
+                className="btn-primary px-8 py-3 rounded-full font-semibold relative overflow-hidden group border border-white/30 hover:border-white text-white"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <span className="relative z-10">View My Milestones</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.button>
+              <motion.a
+                href={personalInfo.resumeUrl}
+                download="John_Vincent_Joaquin_Resume.png"
+                className="btn-outline px-8 py-3 rounded-full font-semibold flex items-center gap-2 border border-white/30 hover:bg-white/10 text-white transition-colors"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <HiDownload className="w-5 h-5" />
+                <span>Download Resume</span>
+              </motion.a>
+            </div>
           </motion.div>
 
-          {/* Stats Bar */}
+          {/* Stats Bar — shimmer cards */}
           <motion.div
             variants={fadeInUp}
             initial="hidden"
@@ -141,8 +174,16 @@ export default function About() {
             className="flex flex-wrap gap-6 mb-16"
           >
             {stats.map((stat, i) => (
-              <div key={i} className="glass-card rounded-2xl p-6 flex-1 min-w-40">
-                <div className="text-4xl font-bold gradient-text mb-1" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+              <motion.div
+                key={i}
+                className="glass-card shimmer-card rounded-2xl p-6 flex-1 min-w-40 group"
+                whileHover={{ y: -4, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                <div
+                  className="text-4xl font-bold mb-1 gradient-text-blue"
+                  style={{ fontFamily: 'Clash Display, sans-serif' }}
+                >
                   {inView ? (
                     <CountUp end={stat.value} duration={2.5} suffix="+" />
                   ) : (
@@ -150,7 +191,7 @@ export default function About() {
                   )}
                 </div>
                 <div className="text-sm text-text-secondary uppercase tracking-wider font-medium">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
@@ -163,32 +204,30 @@ export default function About() {
           viewport={{ once: true }}
           custom={4}
         >
-          <h3 className="text-xl font-semibold text-text-primary mb-8" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+          <h3
+            className="text-xl font-semibold text-text-primary mb-8"
+            style={{ fontFamily: 'Clash Display, sans-serif' }}
+          >
             My Tech Stack
           </h3>
           <div className="grid md:grid-cols-3 gap-8">
             {skillCategories.map((category, ci) => (
               <motion.div
                 key={category.title}
-                className="glass-card rounded-2xl p-6"
+                className="glass-card shimmer-card rounded-2xl p-6"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 + ci * 0.1 }}
+                whileHover={{ y: -3 }}
               >
                 <h4 className="text-sm font-medium text-text-primary uppercase tracking-wider mb-4">
                   {category.title}
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => {
-                    const Icon = skill.icon;
-                    return (
-                      <span key={skill.name} className="skill-badge flex items-center gap-2">
-                        {Icon && <Icon className="text-lg" />}
-                        <span>{skill.name}</span>
-                      </span>
-                    );
-                  })}
+                  {category.skills.map((skill) => (
+                    <SkillBadgeAnimated key={skill.name} skill={skill} />
+                  ))}
                 </div>
               </motion.div>
             ))}
@@ -217,9 +256,7 @@ export default function About() {
               aria-labelledby="milestones-title"
               className="bg-bg-secondary border border-glass-border rounded-3xl p-6 md:p-8 max-w-2xl w-full shadow-2xl relative overflow-hidden"
             >
-              {/* Modal Background Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none" />
-
               <button
                 ref={closeBtnRef}
                 onClick={closeMilestones}
@@ -228,57 +265,32 @@ export default function About() {
               >
                 <HiX className="w-5 h-5" />
               </button>
-
               <div className="relative z-10">
                 <h3 id="milestones-title" className="text-2xl md:text-3xl font-bold text-text-primary mb-4" style={{ fontFamily: 'Clash Display, sans-serif' }}>
                   My Tech Journey & Milestones
                 </h3>
-
                 <p className="text-text-secondary text-base md:text-lg mb-8 leading-relaxed">
-                  My journey has been defined by hands-on creation and problem-solving. Beyond writing clean code, I thrive on engineering complete, end-to-end systems that make an immediate positive impact on their users.
+                  My journey has been defined by hands-on creation and problem-solving.
                 </p>
-
                 <div className="space-y-6 mb-8">
-                  {/* Milestone 1 */}
-                  <div className="flex gap-4 items-start group">
-                    <div className="shrink-0 mt-1">
-                      <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
-                        <HiAcademicCap className="w-5 h-5" />
+                  {[
+                    { Icon: HiAcademicCap, title: 'DOST Ilocos Region OJT', desc: 'Collaborated with a team to develop and successfully deploy 2 fully functional, active systems.' },
+                    { Icon: HiCheckCircle, title: 'Leaving a Legacy', desc: 'Built and deployed a live system for PCLU that is currently serving daily users on campus.' },
+                    { Icon: HiLightBulb, title: 'Hardware Leadership', desc: "Led the creation of the 'Eye Cane Walk,' an Arduino-powered smart cane designed to assist individuals with visual impairments." },
+                  ].map(({ Icon, title, desc }) => (
+                    <div key={title} className="flex gap-4 items-start group">
+                      <div className="shrink-0 mt-1">
+                        <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
+                          <Icon className="w-5 h-5" />
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-semibold text-text-primary mb-1">{title}</h4>
+                        <p className="text-text-secondary leading-relaxed">{desc}</p>
                       </div>
                     </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-text-primary mb-1">DOST Ilocos Region OJT</h4>
-                      <p className="text-text-secondary leading-relaxed">Collaborated with a team to develop and successfully deploy 2 fully functional, active systems.</p>
-                    </div>
-                  </div>
-
-                  {/* Milestone 2 */}
-                  <div className="flex gap-4 items-start group">
-                    <div className="shrink-0 mt-1">
-                      <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
-                        <HiCheckCircle className="w-5 h-5" />
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-text-primary mb-1">Leaving a Legacy</h4>
-                      <p className="text-text-secondary leading-relaxed">Built and deployed a live system for PCLU that is currently serving daily users on campus.</p>
-                    </div>
-                  </div>
-
-                  {/* Milestone 3 */}
-                  <div className="flex gap-4 items-start group">
-                    <div className="shrink-0 mt-1">
-                      <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all">
-                        <HiLightBulb className="w-5 h-5" />
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-text-primary mb-1">Hardware Leadership</h4>
-                      <p className="text-text-secondary leading-relaxed">Led the creation of the 'Eye Cane Walk,' an Arduino-powered smart cane designed to assist individuals with visual impairments.</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
-
                 <div className="pt-6 border-t border-glass-border">
                   <p className="text-text-primary italic font-medium leading-relaxed">
                     "Whether I am developing web applications or wiring smart hardware, I am passionate about bridging the gap between innovative ideas and seamless reality."

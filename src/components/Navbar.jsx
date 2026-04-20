@@ -40,28 +40,45 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Navbar */}
+      {/* ─── Scroll Progress Bar ─── */}
+      <div
+        className="scroll-progress-bar"
+        style={{ width: `${progress * 100}%` }}
+        aria-hidden="true"
+      />
+
+      {/* ─── Navbar ─── */}
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'glass-strong py-3' : 'py-5 bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled ? 'glass-strong py-3 shadow-lg shadow-black/5' : 'py-5 bg-transparent'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
           <motion.button
             onClick={() => scrollToSection('hero')}
-            className="flex items-center gap-1 group"
+            className="flex items-center gap-1 group relative overflow-hidden"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Go to top"
           >
             <span
-              className="text-2xl font-bold tracking-tighter text-text-primary"
+              className="text-2xl font-bold tracking-tighter text-text-primary relative"
               style={{ fontFamily: 'Clash Display, sans-serif' }}
             >
               John<span className="text-blue-primary">.</span>
+              {/* Logo shimmer on hover */}
+              <span
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.15) 50%, transparent 100%)',
+                  backgroundSize: '200%',
+                  animation: 'shimmer-sweep 1s ease',
+                }}
+              />
             </span>
           </motion.button>
 
@@ -71,13 +88,13 @@ export default function Navbar() {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="relative px-4 py-2 text-sm font-medium transition-colors rounded-lg"
+                className="relative px-4 py-2 text-sm font-medium transition-colors rounded-lg group"
                 style={{
                   color: activeSection === link.id ? 'var(--text-primary)' : 'var(--text-secondary)',
                 }}
                 aria-label={`Navigate to ${link.label}`}
               >
-                <span className="relative z-10">{link.label}</span>
+                <span className="relative z-10 draw-underline">{link.label}</span>
                 {activeSection === link.id && (
                   <motion.div
                     layoutId="activeNav"
@@ -90,7 +107,7 @@ export default function Navbar() {
                   <motion.div
                     layoutId="activeIndicator"
                     className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full"
-                    style={{ background: 'linear-gradient(90deg, #2563eb, #ffffff)' }}
+                    style={{ background: 'linear-gradient(90deg, #2563eb, #60a5fa)' }}
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -112,7 +129,7 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* ─── Mobile Menu Overlay ─── */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>

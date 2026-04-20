@@ -1,255 +1,132 @@
-import { motion } from 'framer-motion'
-import { HiLightningBolt, HiShieldCheck, HiArrowNarrowRight } from 'react-icons/hi'
-import { HiSquaresPlus } from 'react-icons/hi2'
-import { BsLayers } from 'react-icons/bs'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { HiLightningBolt, HiCode, HiSparkles, HiChatAlt2 } from 'react-icons/hi'
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
-const stagger = {
+const staggerContainer = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15 },
-  },
+  visible: { transition: { staggerChildren: 0.15 } },
 }
 
-const cardHover = {
-  rest: { scale: 1, y: 0 },
-  hover: {
-    scale: 1.02,
-    y: -4,
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
-  },
+const cardVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
 }
-
-const pillars = [
-  {
-    icon: HiLightningBolt,
-    title: 'Proactive Innovation',
-    subtitle: 'Driving Progress with Passion',
-    description:
-      'I bring infectious energy and a forward-thinking approach to every project. I thrive on rapid iteration and creative problem-solving, ensuring your application stays ahead of the curve.',
-    highlights: ['Solution-Oriented', 'Rapid Innovation', 'Creative Precision'],
-    accentColor: '#f59e0b',
-    accentGlow: 'rgba(245, 158, 11, 0.15)',
-    accentBorder: 'rgba(245, 158, 11, 0.3)',
-  },
-  {
-    icon: HiShieldCheck,
-    title: 'Reliable Strategic Partnership',
-    subtitle: 'Dependability You Can Build On',
-    description:
-      'Trust is the foundation of any project. I provide transparent communication and meticulous version control, ensuring a smooth, predictable, and high-quality development journey.',
-    highlights: ['Open Communication', 'Meticulous Accountability', 'Structured Success'],
-    accentColor: '#2563eb',
-    accentGlow: 'rgba(37, 99, 235, 0.15)',
-    accentBorder: 'rgba(37, 99, 235, 0.3)',
-  },
-  {
-    icon: HiSquaresPlus,
-    title: 'Versatile & Impactful Solutions',
-    subtitle: 'Holistic Technical Excellence',
-    description:
-      'My versatility across the entire stack allows me to bridge the gap between complex logic and elegant user experiences. I focus on building systems that deliver real-world value.',
-    highlights: ['User-Centric Growth', 'Seamless Integration', 'Agile Learning'],
-    accentColor: '#10b981',
-    accentGlow: 'rgba(16, 185, 129, 0.15)',
-    accentBorder: 'rgba(16, 185, 129, 0.3)',
-  },
-]
 
 export default function WorkWithMe() {
+  const { scrollYProgress } = useScroll()
+  const yParallaxFast = useTransform(scrollYProgress, [0, 1], [0, -300])
+  const yParallaxSlow = useTransform(scrollYProgress, [0, 1], [0, 200])
+
+  const propositions = [
+    {
+      title: "Performance-Driven",
+      desc: "I build fast, optimized applications. From minimizing bundle sizes to optimizing database queries, I ensure the end-user experiences zero friction.",
+      icon: HiLightningBolt,
+      bgClass: "bg-yellow-500/10",
+      borderClass: "border-yellow-500/20",
+      textClass: "text-yellow-400",
+      hoverTextClass: "group-hover:text-yellow-400",
+      hex: "#facc15"
+    },
+    {
+      title: "Clean & Scalable Code",
+      desc: "Maintainability is key. I write self-documenting, modular code following design patterns that allow your project to grow without accumulating technical debt.",
+      icon: HiCode,
+      bgClass: "bg-blue-500/10",
+      borderClass: "border-blue-500/20",
+      textClass: "text-blue-400",
+      hoverTextClass: "group-hover:text-blue-400",
+      hex: "#60a5fa"
+    },
+    {
+      title: "Pixel-Perfect UI/UX",
+      desc: "A powerful backend means nothing without a beautiful frontend. I sweat the details—animations, responsive breakpoints, and accessibility—to create premium aesthetics.",
+      icon: HiSparkles,
+      bgClass: "bg-emerald-500/10",
+      borderClass: "border-emerald-500/20",
+      textClass: "text-emerald-400",
+      hoverTextClass: "group-hover:text-emerald-400",
+      hex: "#34d399"
+    },
+    {
+      title: "Clear Communication",
+      desc: "I believe in radical transparency. You'll never be in the dark about project status, blockers, or architectural decisions. I communicate clearly and often.",
+      icon: HiChatAlt2,
+      bgClass: "bg-pink-500/10",
+      borderClass: "border-pink-500/20",
+      textClass: "text-pink-400",
+      hoverTextClass: "group-hover:text-pink-400",
+      hex: "#f472b6"
+    }
+  ]
+
   return (
-    <section
-      id="work-with-me"
-      className="relative py-28 md:py-36 overflow-hidden border-t border-glass-border"
-    >
-      {/* Ambient background glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full pointer-events-none opacity-20"
-        style={{
-          background:
-            'radial-gradient(ellipse, var(--accent-primary) 0%, transparent 70%)',
-          filter: 'blur(80px)',
-        }}
-      />
+    <section id="work-with-me" className="relative py-16 md:py-24 overflow-hidden bg-[#030816] border-t border-glass-border">
+      
+      {/* Background Parallax Orbs */}
+      <motion.div style={{ y: yParallaxFast }} className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute top-10 left-[10%] w-[400px] h-[400px] rounded-full"
+             style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%)', filter: 'blur(80px)' }} />
+      </motion.div>
+      <motion.div style={{ y: yParallaxSlow }} className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute bottom-20 right-[10%] w-[500px] h-[500px] rounded-full"
+             style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)', filter: 'blur(90px)' }} />
+      </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Header */}
+        {/* Header Section */}
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          className="mb-16"
+          viewport={{ once: true, margin: '-50px' }}
+          className="text-center mb-16 max-w-3xl mx-auto"
         >
-          <span className="text-blue-primary text-sm font-semibold uppercase tracking-widest mb-3 block">
-            Collaboration
-          </span>
-          <h2
-            className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4"
-            style={{
-              fontFamily: 'Clash Display, sans-serif',
-              color: 'var(--text-primary)',
-            }}
-          >
-            Why Work With Me?
+          <h2 className="section-title" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+            Why <span className="text-blue-primary">Collaborate</span> With Me?
           </h2>
-          <p className="text-text-secondary max-w-2xl text-sm md:text-base leading-relaxed">
-            I combine technical mastery with a <span className="text-text-primary font-medium">positive, solution-oriented mindset</span>.
-            I'm not just a developer; I'm a <span className="text-blue-primary font-medium">dedicated partner</span> committed to turning your vision into a high-impact reality.
+          <p className="text-text-secondary mt-6 text-lg leading-relaxed max-w-2xl mx-auto">
+            I don't just write code; I engineer solutions. I blend raw technical ability with a passion for user-centric design to build systems that are robust, scalable, and visually compelling.
           </p>
         </motion.div>
 
-        {/* 3-Column Bento Grid */}
+        {/* Value Proposition Cards Layout - Clean modern 2x2 grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          variants={stagger}
+          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto"
         >
-          {pillars.map((pillar, index) => (
-            <motion.div key={pillar.title} variants={fadeInUp}>
-              <motion.div
-                className="relative rounded-2xl overflow-hidden h-full flex flex-col glass-card group cursor-default"
-                initial="rest"
-                whileHover="hover"
-                variants={cardHover}
-                style={{
-                  '--pillar-accent': pillar.accentColor,
-                  '--pillar-glow': pillar.accentGlow,
-                  '--pillar-border': pillar.accentBorder,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = pillar.accentBorder
-                  e.currentTarget.style.boxShadow = `0 20px 50px ${pillar.accentGlow}, 0 0 0 1px ${pillar.accentBorder}`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--glass-border)'
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
+          {propositions.map((prop, index) => {
+            const Icon = prop.icon
+            return (
+              <motion.div 
+                key={index} 
+                variants={cardVariant}
+                className="bg-bg-secondary border border-glass-border rounded-3xl p-8 hover-glass transition-all duration-300 group hover:-translate-y-1 hover:shadow-2xl"
               >
-                {/* Top Accent Line */}
-                <div
-                  className="h-[2px] w-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: `linear-gradient(90deg, transparent, ${pillar.accentColor}, transparent)`,
-                  }}
-                />
-
-                <div className="p-7 md:p-8 flex flex-col flex-1">
-                  {/* Icon */}
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110"
-                    style={{
-                      background: pillar.accentGlow,
-                      border: `1px solid ${pillar.accentBorder}`,
-                    }}
-                  >
-                    <pillar.icon
-                      className="w-6 h-6 transition-colors duration-300"
-                      style={{ color: pillar.accentColor }}
-                    />
+                <div className="flex flex-col gap-5 h-full">
+                  <div className={`w-14 h-14 rounded-2xl ${prop.bgClass} ${prop.borderClass} border flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                    <Icon className={`${prop.textClass} drop-shadow-[0_0_8px_${prop.hex}44]`} />
                   </div>
-
-                  {/* Title */}
-                  <h3
-                    className="text-xl font-bold text-text-primary mb-1 tracking-tight transition-colors duration-300"
-                    style={{ fontFamily: 'Clash Display, sans-serif' }}
-                  >
-                    {pillar.title}
-                  </h3>
-
-                  {/* Subtitle */}
-                  <span
-                    className="text-xs font-semibold uppercase tracking-widest mb-4 block transition-colors duration-300"
-                    style={{ color: pillar.accentColor }}
-                  >
-                    {pillar.subtitle}
-                  </span>
-
-                  {/* Description */}
-                  <p className="text-text-secondary text-sm leading-relaxed mb-6 flex-1">
-                    {pillar.description}
-                  </p>
-
-                  {/* Highlight Pills */}
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {pillar.highlights.map((h) => (
-                      <span
-                        key={h}
-                        className="text-[11px] font-medium px-3 py-1.5 rounded-full border transition-all duration-300"
-                        style={{
-                          color: 'var(--text-secondary)',
-                          borderColor: 'var(--glass-border)',
-                          background: 'var(--card-bg)',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = pillar.accentBorder
-                          e.currentTarget.style.color = pillar.accentColor
-                          e.currentTarget.style.background = pillar.accentGlow
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--glass-border)'
-                          e.currentTarget.style.color = 'var(--text-secondary)'
-                          e.currentTarget.style.background = 'var(--card-bg)'
-                        }}
-                      >
-                        {h}
-                      </span>
-                    ))}
+                  <div>
+                    <h3 className={`text-xl font-bold text-text-primary mb-3 font-clash tracking-wide ${prop.hoverTextClass} transition-colors`}>
+                      {prop.title}
+                    </h3>
+                    <p className="text-text-secondary/80 leading-relaxed font-medium">
+                      {prop.desc}
+                    </p>
                   </div>
-                </div>
-
-                {/* Bottom Index */}
-                <div className="px-7 md:px-8 pb-6 flex items-center justify-between">
-                  <span className="text-text-secondary/30 text-[10px] font-mono uppercase tracking-widest">
-                    0{index + 1}
-                  </span>
-                  <HiShieldCheck
-                    className="w-4 h-4 transition-colors duration-300"
-                    style={{ color: 'var(--glass-border)' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = pillar.accentColor
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = 'var(--glass-border)'
-                    }}
-                  />
                 </div>
               </motion.div>
-            </motion.div>
-          ))}
+            )
+          })}
         </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-20 flex flex-col items-center text-center"
-        >
-          <div className="p-[1px] rounded-full bg-gradient-to-r from-transparent via-blue-primary/50 to-transparent w-full max-w-lg mb-12 opacity-30" />
-          
-          <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-6" style={{ fontFamily: 'Clash Display, sans-serif' }}>
-            Let's Turn Ideas into Reality!
-          </h3>
-          
-
-          
-          <p className="mt-8 text-text-secondary/60 text-xs italic">
-            "Driven by curiosity, fueled by challenge, and committed to your vision."
-          </p>
-        </motion.div>
-
 
       </div>
     </section>
