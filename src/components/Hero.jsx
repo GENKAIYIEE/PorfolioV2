@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { useEffect, useRef, useState } from 'react'
 import { useTypewriter } from '../hooks/useCustomHooks'
 import { personalInfo, roles } from '../data/portfolioData'
-import { HiArrowRight, HiMail, HiChevronDown } from 'react-icons/hi'
+import { HiArrowRight, HiMail } from 'react-icons/hi'
 import Magnetic from './Magnetic'
 import joaquin from '../assets/joaquin.JPG'
 
@@ -227,11 +227,6 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
-
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="absolute bottom-8 left-1/2 flex flex-col items-center gap-1 pointer-events-none" style={{ animation: 'bounce-down 2s ease-in-out infinite' }}>
-        <span className="text-[10px] tracking-[0.2em] uppercase text-text-secondary/40 font-medium font-mono">Scroll</span>
-        <HiChevronDown className="w-4 h-4 text-text-secondary/30" />
-      </motion.div>
     </section>
   )
 }
