@@ -72,9 +72,6 @@ export default function App() {
                 <Contact />
               </Suspense>
             </main>
-            <Suspense fallback={<SectionFallback />}>
-              <Footer />
-            </Suspense>
             <AutoScroll />
           </motion.div>
         )}

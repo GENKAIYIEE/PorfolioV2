@@ -100,7 +100,7 @@ export default function WorkWithMe() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto"
         >
           {propositions.map((prop, index) => {
             const Icon = prop.icon
@@ -108,17 +108,17 @@ export default function WorkWithMe() {
               <motion.div 
                 key={index} 
                 variants={cardVariant}
-                className="bg-bg-secondary border border-glass-border rounded-3xl p-8 hover-glass transition-all duration-300 group hover:-translate-y-1 hover:shadow-2xl"
+                className="bg-bg-secondary border border-glass-border rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="flex flex-col gap-5 h-full">
-                  <div className={`w-14 h-14 rounded-2xl ${prop.bgClass} ${prop.borderClass} border flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                    <Icon className={`${prop.textClass} drop-shadow-[0_0_8px_${prop.hex}44]`} />
+                <div className="flex flex-col gap-4 h-full">
+                  <div className={`w-12 h-12 rounded-xl ${prop.bgClass} ${prop.borderClass} border flex items-center justify-center text-2xl transition-transform duration-300`}>
+                    <Icon className={`${prop.textClass}`} />
                   </div>
                   <div>
-                    <h3 className={`text-xl font-bold text-text-primary mb-3 font-clash tracking-wide ${prop.hoverTextClass} transition-colors`}>
+                    <h3 className="text-[1.1rem] font-semibold text-text-primary mb-2.5">
                       {prop.title}
                     </h3>
-                    <p className="text-text-secondary/80 leading-relaxed font-medium">
+                    <p className="text-text-secondary/80 leading-relaxed text-sm">
                       {prop.desc}
                     </p>
                   </div>

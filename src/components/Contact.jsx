@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { personalInfo } from '../data/portfolioData'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
-import { HiMail, HiCheck, HiPaperAirplane } from 'react-icons/hi'
+import { HiMail, HiCheck, HiPaperAirplane, HiArrowUp } from 'react-icons/hi'
 import emailjs from '@emailjs/browser'
 import Magnetic from './Magnetic'
 
@@ -71,6 +71,10 @@ export default function Contact() {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' })
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   // Background Parallax
   const { scrollYProgress } = useScroll()
@@ -223,6 +227,27 @@ export default function Contact() {
             </form>
           </motion.div>
         </div>
+
+        {/* Back to top button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20 pt-8 border-t border-glass-border flex justify-center"
+        >
+          <Magnetic boost={0.8}>
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group p-3"
+              aria-label="Back to top"
+            >
+              <span className="text-xs tracking-widest uppercase font-bold pointer-events-none">Back to Top</span>
+              <div className="w-9 h-9 rounded-xl border border-glass-border group-hover:border-blue-primary/40 flex items-center justify-center transition-all group-hover:bg-blue-primary/5 pointer-events-none bg-bg-secondary shadow-lg">
+                <HiArrowUp className="w-4 h-4 transition-transform group-hover:-translate-y-1.5" />
+              </div>
+            </button>
+          </Magnetic>
+        </motion.div>
       </div>
     </section>
   )

@@ -2,7 +2,7 @@
 import {
   SiJavascript, SiPhp, SiHtml5, SiCss,
   SiReact, SiNextdotjs, SiExpress, SiLaravel, SiTailwindcss,
-  SiGit, SiGithub, SiVercel, SiDocker
+  SiGit, SiGithub, SiVercel, SiDocker, SiTypescript, SiSupabase
 } from 'react-icons/si';
 import innovate from '../assets/innovate.png';
 import intern from '../assets/intern.png';
@@ -18,22 +18,22 @@ export const personalInfo = {
   name: 'John Vincent Joaquin',
   initials: 'JVJ',
   title: 'Full-Stack Developer & Designer',
-  email: 'john@example.com',
+  email: 'johnnvincentjoaquin34@gmail.com',
   location: 'Philippines',
-  resumeUrl: '/jv-resume.png',
+  resumeUrl: '/ATS resume with pic -JV.pdf',
   socialLinks: {
-    github: 'https://github.com/johnjoaquin',
-    linkedin: 'https://linkedin.com/in/johnjoaquin',
-    email: 'mailto:john@example.com',
+    github: 'https://github.com/GENKAIYIEE',
+    linkedin: 'https://www.linkedin.com/in/john-vincent-joaquin-59b724409',
+    email: 'mailto:johnnvincentjoaquin34@gmail.com',
   },
 }
 
 export const roles = ['Full-Stack Developer', 'Plan Management', 'Problem Solver', 'Version Control']
 
 export const stats = [
-  { label: 'Motivated', value: 100 },
-  { label: 'Projects Completed', value: 4 },
-  { label: 'Certifications', value: 4 },
+  { label: 'Motivated', value: 100, suffix: '%' },
+  { label: 'Projects Completed', value: 3 },
+  { label: 'Awards & Honors', value: 5 },
 ]
 
 export const skillCategories = [
@@ -41,6 +41,7 @@ export const skillCategories = [
     title: 'Languages',
     skills: [
       { name: 'JavaScript', icon: SiJavascript },
+      { name: 'TypeScript', icon: SiTypescript },
       { name: 'PHP', icon: SiPhp },
       { name: 'HTML/CSS', icon: SiHtml5 },
     ],
@@ -62,6 +63,7 @@ export const skillCategories = [
       { name: 'GitHub', icon: SiGithub },
       { name: 'Vercel', icon: SiVercel },
       { name: 'Docker', icon: SiDocker },
+      { name: 'Supabase', icon: SiSupabase },
     ],
   },
 ]
@@ -182,7 +184,7 @@ export const educationData = [
     location: 'La Union, Philippines',
     period: '2022 — April 10, 2026',
     graduationDate: 'April 10, 2026',
-    link: 'https://pclu.edu.ph/',
+    link: 'https://www.facebook.com/PCLUOfficialpage/directory_basic_info',
     emoji: '🎓',
     highlights: [
       'IT graduate experienced in systems and Arduino projects, driven by technical challenges.',
@@ -196,7 +198,7 @@ export const achievements = [
     title: "Dean's Lister",
     org: 'Polytechnic College of La Union',
     year: '2024 – Present',
-    icon: '📜',
+    icon: '🎓',
     description: 'Consistently maintained an academic average of 90 since 2024, earning recognition for unwavering dedication to academic excellence throughout the BSIT program.',
     image: deans,
     label: 'View Honor',
@@ -219,16 +221,6 @@ export const achievements = [
     icon: '🎖️',
     description: 'Received top intern recognition for outstanding performance and technical contributions during the OJT program, directly impacting the agency\'s digital transformation initiatives.',
     image: intern,
-    label: 'View Certificate',
-    featured: true,
-  },
-  {
-    title: 'DOST Region 1 Certificate of Completion (OJT)',
-    org: 'DOST Region 1',
-    year: '2026',
-    icon: '📜',
-    description: 'Officially certified for successfully completing the rigorous On-the-Job Training program at the Department of Science and Technology Region 1, contributing to impactful web development and digital projects.',
-    image: '/cert_placeholder.png',
     label: 'View Certificate',
     featured: true,
   },

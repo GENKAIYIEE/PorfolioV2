@@ -18,6 +18,7 @@ const fadeInUp = {
 // Skill brand colors for glow on hover
 const SKILL_COLORS = {
   JavaScript: '#f7df1e',
+  TypeScript: '#3178c6',
   PHP: '#8892be',
   'HTML/CSS': '#e34c26',
   React: '#61dafb',
@@ -29,6 +30,7 @@ const SKILL_COLORS = {
   GitHub: '#ffffff',
   Vercel: '#ffffff',
   Docker: '#2496ed',
+  Supabase: '#3ecf8e',
 }
 
 function SkillBadgeAnimated({ skill }) {
@@ -153,7 +155,7 @@ export default function About() {
               </motion.button>
               <motion.a
                 href={personalInfo.resumeUrl}
-                download="John_Vincent_Joaquin_Resume.png"
+                download="ATS resume with pic -JV.pdf"
                 className="btn-outline px-8 py-3 rounded-full font-semibold flex items-center gap-2 border border-white/30 hover:bg-white/10 text-white transition-colors"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
@@ -185,9 +187,9 @@ export default function About() {
                   style={{ fontFamily: 'Clash Display, sans-serif' }}
                 >
                   {inView ? (
-                    <CountUp end={stat.value} duration={2.5} suffix="+" />
+                    <CountUp end={stat.value} duration={2.5} suffix={stat.suffix || '+'} />
                   ) : (
-                    '0+'
+                    `0${stat.suffix || '+'}`
                   )}
                 </div>
                 <div className="text-sm text-text-secondary uppercase tracking-wider font-medium">{stat.label}</div>

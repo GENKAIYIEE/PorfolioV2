@@ -338,7 +338,7 @@ export default function Education() {
             <span className="text-text-primary font-semibold">April&nbsp;10,&nbsp;2026</span>.
           </p>
           <motion.a
-            href="https://pclu.edu.ph/"
+            href="https://www.facebook.com/PCLUOfficialpage/directory_basic_info"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary inline-flex gap-2 group border border-blue-500/30 shadow-[0_0_20px_rgba(37,99,235,0.2)]"

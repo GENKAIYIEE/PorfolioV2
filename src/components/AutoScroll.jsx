@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const SCROLL_SPEED = 0.9
+const SCROLL_SPEED = 3.0
 
 // ─── HOW TO PAUSE AUTO-SCROLL FROM ANY COMPONENT ────────────────────────────
 // OPTION A – Open the built-in popup (pauses + shows a modal):

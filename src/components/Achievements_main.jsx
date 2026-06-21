@@ -43,11 +43,11 @@ export default function Achievements() {
   useEffect(() => {
     if (selectedIdx === null) return
     prevFocusRef.current = document.activeElement
-    try { window.history.pushState({ certificateModal: true }, '', window.location.href) } catch (e) {}
+    try { window.history.pushState({ certificateModal: true }, '', window.location.href) } catch (e) { }
     setTimeout(() => closeBtnRef.current?.focus(), 0)
     const handlePop = (e) => { if (!e.state?.certificateModal) setSelectedIdx(null) }
     window.addEventListener('popstate', handlePop)
-    return () => { window.removeEventListener('popstate', handlePop); try { prevFocusRef.current?.focus?.() } catch (e) {} }
+    return () => { window.removeEventListener('popstate', handlePop); try { prevFocusRef.current?.focus?.() } catch (e) { } }
   }, [selectedIdx])
 
   useEffect(() => {
